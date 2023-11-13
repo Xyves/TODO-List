@@ -3,16 +3,86 @@
 --darkreader-text--white: #e8e6e3 FOOTER TEXT ;
 --darkreader-bg--white: #181a1b; PODŚWIETLENIE obecnie używanej karty
     --darkreader-bg--light-grey: #1d1f20; SIDEBAR BACKGROUND */
+
+:root {
+  --main-bg-red: #990a01;
+  --bg-light-grey: #1d1f20;
+  --color-white: #e8e6e3;
+  --main-bg-black: #181a1b;
+}
+
 html {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 body {
-  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background: rgba(109, 109, 109, 0.151);
+  font-size: 30px;
+  background-color: var(--main-bg-black);
 }
 *,
 ::after,
 ::before {
   box-sizing: border-box;
+}
+#container {
+  overflow: hidden;
+}
+.logo {
+  background-color: var(--main-bg-red);
+}
+.menu {
+  display: flex;
+  background-color: var(--main-bg-red);
+  height: 7vh;
+  align-items: center;
+  color: var(--color-white);
+  font-size: 2.3rem;
+  padding-left: 1.5rem;
+}
+.sidebar {
+  background-color: var(--bg-light-grey);
+  color: var(--color-white);
+  height: 100%;
+  width: 25%;
+  padding: 30px;
+  position: absolute;
+}
+.sidebar-header {
+  width: 100%;
+}
+.sidebar-header {
+  border: 1px solid red;
+  text-align: justify;
+  font-size: 3rem;
+}
+.sidebar-header::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+.sidebar-header p {
+  display: inline-block;
+  vertical-align: top;
+}
+.sidebar-header i {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
+}
+
+ul {
+  list-style: none;
+}
+.sidebar ul li {
+  padding: 10px;
+  padding-bottom: 20px;
+  font-size: 2rem;
+  border: 2px solid black;
+}
+.sidebar-menu li:last-child {
+  margin-bottom: 25vh;
 }

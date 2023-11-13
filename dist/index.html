@@ -6,11 +6,33 @@
     <link rel="stylesheet" href="output.css" />
   </head>
   <body>
-    <header>
-      <i class="hamburger"></i>
-      <p class="logo">TODO</p>
-    </header>
-    <div class="sidebar sidebar-show"></div>
+    <div id="container">
+      <header>
+        <i class="hamburger"></i>
+        <p class="logo">TODO</p>
+      </header>
+      <div class="sidebar sidebar-show">
+        <ul class="sidebar-menu">
+          <li><a>Inbox</a></li>
+          <li><a>Today</a></li>
+          <li><a>Next 7 days</a></li>
+          <li><a>Important</a></li>
+          <li><a>Completed</a></li>
+        </ul>
+        <ul class="sidebar-project">
+          <header class="sidebar-header">
+            <p>Projects</p>
+            <i class="add-project-modal">+</i>
+          </header>
+          <div class="created-projects">
+            <div class="project demoProject">
+              <li><a>Demo Project</a></li>
+            </div>
+            <li><a>Demo Project 2</a></li>
+          </div>
+        </ul>
+      </div>
+
   </body>
   <script defer src="bundle.js"></script>
 </html>
