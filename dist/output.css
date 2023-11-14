@@ -29,7 +29,22 @@ body {
   box-sizing: border-box;
 }
 #container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
   overflow: hidden;
+  height: 100vh;
+  width: 100%;
+}
+.content {
+  grid-column: 2/3;
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+}
+.content h1 {
+  padding: 40px;
+  margin-bottom: 40px;
+  border: 3px solid yellow;
 }
 .logo {
   background-color: var(--main-bg-red);
@@ -50,6 +65,8 @@ body {
   width: 25%;
   padding: 30px;
   position: absolute;
+  display: flex;
+  flex-direction: column;
 }
 .sidebar-header {
   width: 100%;
@@ -118,4 +135,13 @@ ul {
 }
 #menuCompleted::before {
   content: url(icons/completed.svg);
+}
+.addTaskBtn {
+  padding: 20px;
+}
+.addTaskBtn::before {
+  content: "+";
+}
+.addTaskBtn p {
+  display: inline-block;
 }
