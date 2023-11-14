@@ -10,12 +10,12 @@
   --color-white: #e8e6e3;
   --main-bg-black: #181a1b;
 }
-
-html {
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
+
 body {
   min-height: 100vh;
   width: 100%;
@@ -55,9 +55,7 @@ body {
   width: 100%;
 }
 .sidebar-header {
-  border: 1px solid red;
   text-align: justify;
-  font-size: 3rem;
 }
 .sidebar-header::after {
   content: "";
@@ -67,11 +65,13 @@ body {
 .sidebar-header p {
   display: inline-block;
   vertical-align: top;
+  font-size: 2.5rem;
 }
 .sidebar-header i {
   display: inline-block;
   vertical-align: top;
   margin-right: 10px;
+  font-size: 2.5rem;
 }
 
 ul {
@@ -85,4 +85,37 @@ ul {
 }
 .sidebar-menu li:last-child {
   margin-bottom: 25vh;
+}
+.project {
+  margin-left: 20px;
+}
+.sidebar-line {
+  margin: -20px 0 30px;
+  border-bottom: 1.5px solid rgba(140, 130, 115, 0.15);
+  padding: 0 3px;
+}
+.svg-today {
+  background-image: url(icons/calendar_today.svg);
+  height: 20px;
+  width: 50px;
+}
+#menuToday::before {
+  content: url(icons/calendar_today.svg);
+}
+.sidebar-menu li::before {
+  margin-right: 10px;
+  width: 24px;
+  height: 36px;
+}
+#menuInbox::before {
+  content: url("icons/inbox.svg");
+}
+#menuWeek::before {
+  content: url(icons/calendar-week.svg);
+}
+#menuImportant::before {
+  content: url(icons/important-date.svg);
+}
+#menuCompleted::before {
+  content: url(icons/completed.svg);
 }
