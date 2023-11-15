@@ -9,13 +9,17 @@
   --bg-light-grey: #1d1f20;
   --color-white: #e8e6e3;
   --main-bg-black: #181a1b;
+  --background-bg--gray: #4c5255;
 }
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
-
+.sidebar-active {
+  background-color: var(--main-bg-black);
+  border-radius: 15px;
+}
 body {
   min-height: 100vh;
   width: 100%;
@@ -70,7 +74,9 @@ body {
 }
 .sidebar-header {
   width: 100%;
+  display: inline-block;
 }
+
 .sidebar-header {
   text-align: justify;
 }
@@ -97,8 +103,7 @@ ul {
 .sidebar ul li {
   padding: 10px;
   padding-bottom: 20px;
-  font-size: 2rem;
-  border: 2px solid black;
+  font-size: 1.5rem;
 }
 .sidebar-menu li:last-child {
   margin-bottom: 25vh;
@@ -106,10 +111,14 @@ ul {
 .project {
   margin-left: 20px;
 }
+
 .sidebar-line {
-  margin: -20px 0 30px;
-  border-bottom: 1.5px solid rgba(140, 130, 115, 0.15);
+  margin: 20px 0 30px;
+  border-bottom: 3px solid rgba(146, 142, 135, 0.15);
   padding: 0 3px;
+}
+.sidebar-project .sidebar-line {
+  margin: -20px 0 30px 0;
 }
 .svg-today {
   background-image: url(icons/calendar_today.svg);
