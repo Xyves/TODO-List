@@ -1,1 +1,47 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>Webpack App</title><link rel="stylesheet" href="output.css"/><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script><script defer="defer" src="bundle.js"></script></head><body><header><i class="hamburger"></i><p class="logo">TODO</p></header><div id="container"><div class="sidebar sidebar-show"><ul class="sidebar-menu"><li id="menuInbox"><a>Inbox</a></li><li id="menuToday"><a>Today</a></li><li id="menuWeek"><a>Next 7 days</a></li><li id="menuImportant"><a>Important</a></li><li id="menuCompleted"><a>Completed</a></li></ul><ul class="sidebar-project"><header class="sidebar-header"><p>Projects</p><i class="add-project-modal">+</i></header><div class="sidebar-line"></div><div class="created-projects"><div class="project demoProject"><li><a>Demo Project</a></li><i class="edit edit-project"></i> <i class="delete remove-thrash"></i></div><template id="project"><div class="project"><li><a>Some text here</a></li><i class="edit edit-project"></i> <i class="delete remove-thrash"></i></div></template></div></ul></div><div class="content"></div></div><script defer="defer" src="bundle.js"></script></body></html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Webpack App</title>
+    <link rel="stylesheet" href="output.css" />
+    <script defer="defer" src="bundle.js"></script>
+  </head>
+  <body>
+    <header>
+      <i class="hamburger"></i>
+      <p class="logo">TODO</p>
+    </header>
+    <div id="container">
+      <div class="sidebar sidebar-show">
+        <ul class="sidebar-menu">
+          <li id="menuInbox"><a>Inbox</a></li>
+          <li id="menuToday"><a>Today</a></li>
+          <li id="menuWeek"><a>Next 7 days</a></li>
+          <li id="menuImportant"><a>Important</a></li>
+          <li id="menuCompleted"><a>Completed</a></li>
+        </ul>
+        <ul class="sidebar-project">
+          <header class="sidebar-header">
+            <p>Projects</p>
+            <i class="add-project-modal">+</i>
+          </header>
+          <div class="sidebar-line"></div>
+          <div class="created-projects">
+            <div class="project demoProject">
+              <li><a>Demo Project</a></li>
+              <i class="edit edit-project"></i>
+              <i class="delete remove-thrash"></i>
+            </div>
+            <template id="project"
+              ><div class="project">
+                <li><a>Some text here</a></li>
+                <i class="edit edit-project"></i>
+                <i class="delete remove-thrash"></i></div
+            ></template>
+          </div>
+        </ul>
+      </div>
+      <div class="content"></div>
+    </div>
+  </body>
+</html>
