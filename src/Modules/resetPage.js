@@ -1,11 +1,5 @@
 export default function () {
   resetContent();
-  const menuToday = document.querySelector("#menuToday");
-  const menuWeek = document.querySelector("#menuWeek");
-  const menuInbox = document.querySelector("#menuInbox");
-  const menuImportant = document.querySelector("#menuImportant");
-  const menuCompleted = document.querySelector("#menuCompleted");
-
   function resetContent() {
     const content = document.querySelector(".content");
     content.innerHTML = "";
