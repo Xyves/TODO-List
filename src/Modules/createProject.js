@@ -1,16 +1,20 @@
-export default function () {
-  // Po kliknieciu + wyswietl okno z nazwa projektu, funkcja ktora bedzie tworzyc projekt ma wziac wartosc z tego okna i stworzyc nowy element pod Demo Project
-  createNewProject () 
-  createTask();
-}
-  createNewProject(){
-    const content = document.querySelector(".content");
-    const mainHeader = document.createElement("h1");
-    const menuNextWeek = document.querySelector("#menuToday");
-    menuNextWeek.classList.add("sidebar-active");
-    mainHeader.textContent = "Next Week";
-    content.appendChild(mainHeader);
+import { NewProject } from "./menuEvents";
+class newProject {
+  static idCounter = 1;
+  constructor(title) {
+    this.title = title;
+    this.id = newProject.idCounter++;
   }
-
-  
-
+}
+export function createNewProjectDiv(project) {
+  const createdProjects = document.querySelector("[data-lists]");
+  let elem = document.createElement("div");
+  const projectTmpl = document.querySelector("#projectTmpl");
+  console.log("hey");
+  elem.append(projectTmpl.content.cloneNode(true));
+  elem.querySelector(".projectName").textContent = project.title;
+  console.log(project.title + "XD");
+  // elem.querySelector(".projectId").textContent = project.id;
+  createdProjects.appendChild(elem);
+}
+export default newProject;
