@@ -27,18 +27,19 @@
             <i class="add-project-modal">+</i>
           </header>
           <div class="sidebar-line"></div>
-          <div class="created-projects">
+          <div class="created-projects" data-lists>
             <div class="project demoProject">
               <li class="menuEl"><a>Demo Project</a></li>
               <i class="edit edit-project"></i>
               <i class="delete remove-thrash"></i>
             </div>
-            <template id="project"
-              ><div class="project">
-                <li><a>Some text here</a></li>
+            <template id="projectTmpl">
+              <div class="project">
+                <li class="menuEl"><a class="projectName"></a></li>
                 <i class="edit edit-project"></i>
-                <i class="delete remove-thrash"></i></div
-            ></template>
+                <i class="delete remove-thrash"></i>
+              </div>
+            </template>
           </div>
         </ul>
       </div>
@@ -66,12 +67,12 @@
       </div>
       <div class="project-box modal-box none">
         <h2>New Project</h2>
-        <form action="GET">
+        <form action="GET" class="addProject">
           <label for="">Project title *</label>
-          <input type="text" />
+          <input type="text" id="form-id" />
           <div class="modal-buttons">
             <button class="button-cancel">Cancel</button>
-            <button class="button-add">Add</button>
+            <button class="button-add-project">Add</button>
           </div>
         </form>
       </div>
