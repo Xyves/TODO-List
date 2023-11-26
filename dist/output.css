@@ -195,6 +195,9 @@ ul {
 .button-cancel {
   background-color: var(--background-bg--gray);
 }
+.button-add-project {
+  background-color: var(--main-bg-red);
+}
 .visible {
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, 0.75);
 }
