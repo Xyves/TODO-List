@@ -20,14 +20,13 @@ class newTask {
     return format(new Date(this.date), "dd/MM/yyyy");
   };
 }
-
+export default newTask;
 export function createNewTaskDiv(task) {
   const taskContainer = document.querySelector(".taskContainer");
   const taskDiv = document.createElement("div");
   const taskTemplate = document.querySelector("#TodoTaskTemplate");
   const taskId = task.id;
-  const date = task.getDate();
-  console.log(`I love number ${taskId}`);
+  const date = task.date;
   taskDiv.classList.add("task", taskId);
   taskContainer.appendChild(taskDiv);
   taskDiv.append(taskTemplate.content.cloneNode(true));
@@ -35,4 +34,3 @@ export function createNewTaskDiv(task) {
   taskDiv.querySelector(".toDoTaskDate").textContent = date;
   taskContainer.appendChild(taskDiv);
 }
-export default newTask;

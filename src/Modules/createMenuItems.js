@@ -17,32 +17,4 @@ export default function () {
   addTaskBtn.appendChild(line);
 
   content.appendChild(mainHeader);
-  const pages = {
-    Inbox: {
-      textContent: "Inbox",
-      Id: "menuInbox",
-    },
-    Today: {
-      textContent: "Today",
-      Id: "menuToday",
-    },
-    Week: {
-      textContent: "Next 7 days",
-      Id: "menuWeek",
-    },
-    Important: {
-      textContent: "Important",
-      Id: "menuImportant",
-    },
-    Completed: {
-      textContent: "Completed",
-      Id: "menuInbox",
-    },
-  };
 }
-
-// function createContent(textContent, selector) {
-//   const queryName = document.querySelector(`#${selector}`);
-//   queryName.classList.add("sidebar-active");
-//   mainHeader.textContent = textContent;
-// }
