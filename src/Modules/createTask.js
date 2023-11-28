@@ -6,6 +6,7 @@ class newTask {
     this.priority = priority;
     this.id = newTask.idCounter++;
     this.date = date;
+    this.isCompleted = false;
   }
   getTitle = () => {
     return this.title;
@@ -19,7 +20,13 @@ class newTask {
   getDate = () => {
     return format(new Date(this.date), "dd/MM/yyyy");
   };
+  updateDetails(newTitle, newPriority, newDate) {
+    this.title = newTitle;
+    this.priority = newPriority;
+    this.date = newDate;
+  }
 }
+
 export default newTask;
 export function createNewTaskDiv(task) {
   const taskContainer = document.querySelector(".taskContainer");
