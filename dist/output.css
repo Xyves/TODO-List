@@ -1,8 +1,3 @@
-/* --darkreader-text--grey: #b5afa6;
---darkreader-bg--primary-red: #990a01; 
---darkreader-text--white: #e8e6e3 FOOTER TEXT ;
---darkreader-bg--white: #181a1b; PODŚWIETLENIE obecnie używanej karty
-    --darkreader-bg--light-grey: #1d1f20; SIDEBAR BACKGROUND */
 @media (max-width: 1000px) {
   /* … */
 }
@@ -11,7 +6,12 @@
   --bg-light-grey: #1d1f20;
   --color-white: #e8e6e3;
   --main-bg-black: #181a1b;
-  --background-bg--gray: #4c5255;
+  --bg-gray: #4c5255;
+  --text--project-green: #296953;
+  --text--project-yellow: #e9ca6c;
+  --text--project-red: #6c2028;
+  --footer-text--white: #181a1b;
+  --text--grey: #b5afa6;
 }
 *,
 ::after,
@@ -38,43 +38,42 @@ body {
 /* Sidebar */
 .sidebar-active {
   background-color: var(--main-bg-black);
-  border-radius: 15px;
+  border-radius: 12px;
 }
 .menu {
   display: flex;
   background-color: var(--main-bg-red);
   height: 7vh;
   align-items: center;
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   padding-left: 1.5rem;
 }
 .sidebar {
   background-color: var(--bg-light-grey);
   color: var(--color-white);
   height: 100%;
-  width: 25%;
+  width: 20%;
   padding: 30px;
   position: absolute;
   display: flex;
   flex-direction: column;
 }
+
 .sidebar-header {
   width: 100%;
-  display: inline-block;
-}
-.sidebar-header {
+  display: flex;
   text-align: justify;
+  border-bottom: 3px solid rgba(146, 142, 135, 0.15);
+  padding: 10px 3px;
 }
-.sidebar-header::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
-}
+
 .sidebar-header p {
   display: inline-block;
   vertical-align: top;
   font-size: 2.5rem;
+  margin-right: auto;
 }
+
 .sidebar-header i {
   display: inline-block;
   vertical-align: top;
@@ -83,30 +82,28 @@ body {
   cursor: pointer;
   padding: 2px 4px;
 }
+#menuImportant i {
+  margin-left: -5px;
+}
+#menuImportant a {
+  margin-left: -5px;
+}
+.sidebar-menu li i {
+  margin-right: 20px;
+  max-width: 50px;
+  max-height: 34px;
+}
 .sidebar-header i:hover {
   background-color: var(--main-bg-black);
   border-radius: 15px;
 }
-.sidebar-menu li::before {
-  margin-right: 10px;
-  width: 24px;
-  height: 36px;
-}
-.sidebar-line {
-  margin: 20px 0 30px;
-  border-bottom: 3px solid rgba(146, 142, 135, 0.15);
-  padding: 0 3px;
-}
-.sidebar-project .sidebar-line {
-  margin: -20px 0 30px 0;
-}
-ul {
+.sidebar ul {
   list-style: none;
 }
 .sidebar ul li {
   padding: 10px;
-  padding-bottom: 20px;
-  font-size: 1.8rem;
+  padding-bottom: 10px;
+  font-size: 2rem;
 }
 .sidebar-menu li:last-child {
   margin-bottom: 25vh;
@@ -139,10 +136,11 @@ ul {
   margin: 30px;
   padding-top: 15px;
   cursor: pointer;
+  padding-bottom: 10px;
+  border-bottom: 3px solid rgba(146, 142, 135, 0.15);
 }
 .addTaskBtn::before {
   content: "+";
-  margin-left: 10px;
 }
 .addTaskBtn:hover {
   background-color: var(--bg-light-grey);
@@ -193,7 +191,10 @@ ul {
   background-color: red;
 }
 .button-cancel {
-  background-color: var(--background-bg--gray);
+  background-color: var(--bg-gray);
+}
+.add-project-modal:hover {
+  color: rgb(99, 99, 99) !important;
 }
 .button-add-project {
   background-color: var(--main-bg-red);
@@ -201,33 +202,69 @@ ul {
 .visible {
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, 0.75);
 }
-/* Icons */
-#menuToday::before {
-  content: url(icons/calendar_today.svg);
-}
-
-#menuInbox::before {
-  content: url("icons/inbox.svg");
-}
-#menuWeek::before {
-  content: url(icons/calendar-week.svg);
-}
-#menuImportant::before {
-  content: url(icons/important-date.svg);
-}
-#menuCompleted::before {
-  content: url(icons/completed.svg);
-}
 
 .none {
   display: none;
 }
 .taskContainer {
-  background-color: red;
   margin: 30px;
   padding-top: 15px;
 }
-.taskItem {
-  margin: 30px var(--background-bg--gray);
-  border-bottom-color: rgba(140, 130, 115, 0.15);
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 65px;
+  padding: 15px 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+}
+
+.todo-item .toDoTaskDate {
+  margin-left: auto;
+  background-color: var(--main-bg-red);
+  border-radius: 22px;
+  padding: 7px;
+}
+
+.taskEdit {
+  background: url("./icons/editing.svg") no-repeat center center;
+}
+.taskRemove {
+  color: white;
+  width: 30px;
+  height: 30px;
+  content: "\f2ed";
+}
+.taskbtn {
+  margin-left: 20px;
+
+  display: block;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.taskbtn:hover {
+  box-shadow: inset 0 -60px 0 0 var(--bg-light-grey);
+}
+
+.projectPriority {
+  padding: 10px;
+}
+
+.project-green {
+  color: var(--text--project-green);
+}
+.project-yellow {
+  color: var(--text--project-yellow);
+}
+.project-red {
+  color: var(--text--project-red);
+}
+.icon::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.todo-item:hover {
+  background-color: var(--bg-light-grey);
 }
