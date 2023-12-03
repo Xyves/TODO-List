@@ -17,13 +17,13 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
+
 body {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
-  background: rgba(109, 109, 109, 0.151);
   font-size: 30px;
   background-color: var(--main-bg-black);
   color: var(--color-white);
@@ -31,23 +31,11 @@ body {
 #container {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 
 /* Sidebar */
-.sidebar-active {
-  background-color: var(--main-bg-black);
-  border-radius: 12px;
-}
-.menu {
-  display: flex;
-  background-color: var(--main-bg-red);
-  height: 7vh;
-  align-items: center;
-  font-size: 2.1rem;
-  padding-left: 1.5rem;
-}
 .sidebar {
   background-color: var(--bg-light-grey);
   color: var(--color-white);
@@ -82,6 +70,19 @@ body {
   cursor: pointer;
   padding: 2px 4px;
 }
+.sidebar-active {
+  background-color: var(--main-bg-black);
+  border-radius: 12px;
+}
+.menu {
+  display: flex;
+  background-color: var(--main-bg-red);
+  height: 7vh;
+  align-items: center;
+  font-size: 2.1rem;
+  padding-left: 1.5rem;
+}
+
 #menuImportant i {
   margin-left: -5px;
 }
@@ -109,7 +110,7 @@ body {
   margin-bottom: 25vh;
 }
 .project {
-  margin-left: 20px;
+  margin-left: 25px;
 }
 .menuEl {
   user-select: none;
@@ -125,7 +126,7 @@ body {
   height: 100%;
 }
 .content h1 {
-  padding: 40px;
+  padding: 40px 40px 40px 0;
   margin-bottom: 40px;
 }
 .logo {
@@ -133,15 +134,15 @@ body {
 }
 
 .addTaskBtn {
-  margin: 30px;
-  padding-top: 15px;
   cursor: pointer;
-  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 65px;
+  padding: 23px 5px;
   border-bottom: 3px solid rgba(146, 142, 135, 0.15);
 }
-.addTaskBtn::before {
-  content: "+";
-}
+
 .addTaskBtn:hover {
   background-color: var(--bg-light-grey);
 }
@@ -178,27 +179,36 @@ body {
   font-size: 1.8rem;
 }
 .modal-buttons {
-  min-height: 100px;
-  max-height: 150px;
+  min-height: 90px;
+  max-height: 130px;
   background-color: var(--bg-light-grey);
+  display: flex;
+  flex: 0;
+  justify-content: space-between;
 }
 .modal-buttons button {
   color: white;
-  padding: 10px 15px;
+  padding: 15px 25px;
   border-radius: 5px;
+  height: 50%;
+  margin-top: 20px;
 }
-.button-add {
+
+.btn-cancel {
+  color: black !important;
+  margin-left: auto;
+  margin-right: 15px;
+  background-color: var(--text--grey);
+}
+.btn-add {
+  margin-right: 20px;
   background-color: red;
 }
-.button-cancel {
-  background-color: var(--bg-gray);
-}
+
 .add-project-modal:hover {
   color: rgb(99, 99, 99) !important;
 }
-.button-add-project {
-  background-color: var(--main-bg-red);
-}
+
 .visible {
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, 0.75);
 }
@@ -216,7 +226,7 @@ body {
   align-items: center;
   min-height: 65px;
   padding: 15px 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+  border-bottom: 3px solid rgba(146, 142, 135, 0.15);
 }
 
 .todo-item .toDoTaskDate {
@@ -226,18 +236,15 @@ body {
   padding: 7px;
 }
 
-.taskEdit {
-  background: url("./icons/editing.svg") no-repeat center center;
-}
 .taskRemove {
   color: white;
-  width: 30px;
-  height: 30px;
+
   content: "\f2ed";
+}
+.taskEdit {
 }
 .taskbtn {
   margin-left: 20px;
-
   display: block;
   width: 50px;
   height: 50px;
@@ -247,7 +254,7 @@ body {
   box-shadow: inset 0 -60px 0 0 var(--bg-light-grey);
 }
 
-.projectPriority {
+.taskPriority {
   padding: 10px;
 }
 
@@ -267,4 +274,26 @@ body {
 }
 .todo-item:hover {
   background-color: var(--bg-light-grey);
+}
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5vh;
+  background-color: var(--main-bg-red);
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  left: 0;
+  font-weight: 200;
+  font-size: 1.8rem;
+}
+footer p {
+}
+a {
+  color: inherit;
+}
+a:visited {
+  color: inherit;
 }
