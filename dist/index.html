@@ -11,11 +11,6 @@
     <script defer="defer" src="bundle.js"></script>
   </head>
   <body>
-    <header>
-      <i class="hamburger"></i>
-      <p class="logo">TODO</p>
-    </header>
-
     <div id="container">
       <div class="sidebar sidebar-show">
         <ul class="sidebar-menu">
@@ -65,10 +60,19 @@
             </template>
           </div>
         </ul>
+        <footer>
+          <p>
+            Built by
+            <a href="https://github.com/Xyves" target="_blank">Xyves</a> |
+            <a href="https://github.com/Xyves/TODO-List" target="_blank"
+              >Source code</a
+            >
+          </p>
+        </footer>
       </div>
       <div class="content"></div>
       <template id="TodoTaskTemplate">
-        <i class="projectPriority fa-regular fa-circle icon"> </i>
+        <i class="taskPriority fa-regular fa-circle icon"> </i>
         <p class="toDoTaskName"></p>
         <p class="toDoTaskDate"></p>
         <i
@@ -86,17 +90,19 @@
           <label for="taskTitle">Task Title *</label>
           <input type="text" id="taskTitle" />
           <label for="priority">Priority</label>
-          <select name="priority" id="taskPriority">
+          <select name="priority" id="taskPriority" required>
             <option value="" selected disabled>--Select priority--</option>
             <option value="priorityLow">Low</option>
             <option value="priorityMedium">Medium</option>
             <option value="priorityHigh">High</option>
           </select>
           <label for="schedule">Schedule</label>
-          <input type="date" name="schedule" id="taskDate" />
+          <input type="date" name="schedule" id="taskDate" autocomplete="off" />
           <div class="modal-buttons">
-            <button class="button-cancel" type="button">Cancel</button>
-            <button class="button-add">Add</button>
+            <button class="btn-task-cancel btn-cancel" type="button">
+              Cancel
+            </button>
+            <button class="button-add btn-add">Add</button>
           </div>
         </form>
       </div>
@@ -106,8 +112,10 @@
           <label for="">Project title *</label>
           <input type="text" id="form-id" />
           <div class="modal-buttons">
-            <button class="button-project-cancel" type="button">Cancel</button>
-            <button class="button-add-project">Add</button>
+            <button class="button-project-cancel btn-cancel" type="button">
+              Cancel
+            </button>
+            <button class="button-add-project btn-add">Add</button>
           </div>
         </form>
       </div>
