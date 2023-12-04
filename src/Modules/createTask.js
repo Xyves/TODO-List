@@ -20,24 +20,11 @@ class newTask {
   getDate = () => {
     return format(new Date(this.date), "dd/MM/yyyy");
   };
-  updateDetails(newTitle, newPriority, newDate) {
-    this.title = newTitle;
-    this.priority = newPriority;
-    this.date = newDate;
-  }
+}
+// To be updated
+function addTask(title, priority, date, isCompleted) {}
+function editTask(title, priority, date) {
+  const task = new newTask(title, priority, date);
 }
 
 export default newTask;
-export function createNewTaskDiv(task) {
-  const taskContainer = document.querySelector(".taskContainer");
-  const taskDiv = document.createElement("div");
-  const taskTemplate = document.querySelector("#TodoTaskTemplate");
-  const taskId = task.id;
-  const date = task.date;
-  taskDiv.classList.add("task", taskId);
-  taskContainer.appendChild(taskDiv);
-  taskDiv.append(taskTemplate.content.cloneNode(true));
-  taskDiv.querySelector(".toDoTaskName").textContent = task.title;
-  taskDiv.querySelector(".toDoTaskDate").textContent = date;
-  taskContainer.appendChild(taskDiv);
-}

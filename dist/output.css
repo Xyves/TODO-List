@@ -22,12 +22,13 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   font-size: 30px;
   background-color: var(--main-bg-black);
   color: var(--color-white);
 }
+
 #container {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -39,12 +40,13 @@ body {
 .sidebar {
   background-color: var(--bg-light-grey);
   color: var(--color-white);
-  height: 100%;
   width: 20%;
   padding: 30px;
   position: absolute;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
 }
 
 .sidebar-header {
@@ -70,10 +72,12 @@ body {
   cursor: pointer;
   padding: 2px 4px;
 }
+
 .sidebar-active {
   background-color: var(--main-bg-black);
   border-radius: 12px;
 }
+
 .menu {
   display: flex;
   background-color: var(--main-bg-red);
@@ -86,49 +90,62 @@ body {
 #menuImportant i {
   margin-left: -5px;
 }
+
 #menuImportant a {
   margin-left: -5px;
+}
+.sidebar {
 }
 .sidebar-menu li i {
   margin-right: 20px;
   max-width: 50px;
   max-height: 34px;
 }
+
 .sidebar-header i:hover {
   background-color: var(--main-bg-black);
   border-radius: 15px;
 }
+
 .sidebar ul {
   list-style: none;
 }
+
 .sidebar ul li {
   padding: 10px;
   padding-bottom: 10px;
   font-size: 2rem;
 }
+
 .sidebar-menu li:last-child {
   margin-bottom: 25vh;
 }
+
 .project {
   margin-left: 25px;
 }
+
 .menuEl {
   user-select: none;
   cursor: pointer;
 }
+
 .menuEl:hover {
   filter: brightness(80%);
 }
+
 /* Content */
 .content {
   grid-column: 2/3;
   width: 100%;
   height: 100%;
 }
+
 .content h1 {
   padding: 40px 40px 40px 0;
   margin-bottom: 40px;
 }
+
 .logo {
   background-color: var(--main-bg-red);
 }
@@ -146,6 +163,7 @@ body {
 .addTaskBtn:hover {
   background-color: var(--bg-light-grey);
 }
+
 .addTaskBtn p {
   display: inline-block;
   margin-left: 10px;
@@ -158,12 +176,14 @@ body {
   transform: translate(-50%, -50%);
   max-width: 520px;
 }
+
 .modal-box h2 {
   font-size: 2.3rem;
   padding: 15px;
   background-color: var(--bg-light-grey);
   margin-bottom: 20px;
 }
+
 .modal-box input,
 .modal-box select {
   width: 80%;
@@ -174,10 +194,12 @@ body {
   color: white;
   margin-bottom: 20px;
 }
+
 .modal-box label {
   margin: 10px 18px;
   font-size: 1.8rem;
 }
+
 .modal-buttons {
   min-height: 90px;
   max-height: 130px;
@@ -186,6 +208,7 @@ body {
   flex: 0;
   justify-content: space-between;
 }
+
 .modal-buttons button {
   color: white;
   padding: 15px 25px;
@@ -200,6 +223,7 @@ body {
   margin-right: 15px;
   background-color: var(--text--grey);
 }
+
 .btn-add {
   margin-right: 20px;
   background-color: red;
@@ -238,11 +262,9 @@ body {
 
 .taskRemove {
   color: white;
-
   content: "\f2ed";
 }
-.taskEdit {
-}
+
 .taskbtn {
   margin-left: 20px;
   display: block;
@@ -261,20 +283,25 @@ body {
 .project-green {
   color: var(--text--project-green);
 }
+
 .project-yellow {
   color: var(--text--project-yellow);
 }
+
 .project-red {
   color: var(--text--project-red);
 }
+
 .icon::before {
   display: inline-block;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
 }
+
 .todo-item:hover {
   background-color: var(--bg-light-grey);
 }
+
 footer {
   display: flex;
   align-items: center;
@@ -282,18 +309,17 @@ footer {
   width: 100%;
   height: 5vh;
   background-color: var(--main-bg-red);
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  left: 0;
   font-weight: 200;
   font-size: 1.8rem;
+  position: absolute;
+  bottom: 0;
+  left: 0.1px;
 }
-footer p {
-}
+
 a {
   color: inherit;
 }
+
 a:visited {
   color: inherit;
 }

@@ -11,14 +11,4 @@ class newProject {
     return this.id;
   };
 }
-export function createNewProjectDiv(project) {
-  const createdProjects = document.querySelector("[data-lists]");
-  let elem = document.createElement("div");
-  const projectTmpl = document.querySelector("#projectTmpl");
-
-  elem.append(projectTmpl.content.cloneNode(true));
-  elem.querySelector(".projectName").textContent = project.title;
-  console.log(project.title + "XD");
-  createdProjects.appendChild(elem);
-}
 export default newProject;

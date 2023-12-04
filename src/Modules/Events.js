@@ -1,159 +1,117 @@
 import resetPage from "./resetPage";
-import toggleTaskClass from "./changeVisibility";
-import DetectClick from "./detectClick";
-import createItems from "./createMenuItems";
-import { createContent } from "./createMenuItems";
-import { ToggleProjectClass } from "./changeVisibility";
-import { detectProjectClick } from "./detectClick";
+import createItems, {
+  createTaskDiv,
+  createProjectDiv,
+  createTaskContainer,
+} from "./createMenuItems";
+import createTask from "./createTask";
+import toggleTaskClass, { ToggleProjectClass } from "./changeVisibility";
+import DetectClick, { detectProjectClick } from "./detectClick";
 import addNewProject from "./createProject";
-import createTask, { createNewTaskDiv } from "./createTask";
 import HighlightSidebar from "./menuHighlight";
-import { createNewProjectDiv } from "./createProject";
-import saveToStorage from "./localStorage";
-const inbox = document.querySelector("#menuInbox");
-const content = document.querySelector(".content");
 
+function getSelectedPage() {
+  const selectedElement = document.querySelector(".sidebar-active");
+  if (selectedElement) {
+    console.log(selectedElement.textContent.trim());
+    return selectedElement.textContent.trim();
+  }
+}
+// Functions when loading the page
 export default function () {
-  createItems();
-  addNewTask();
   NewListItem();
   showProjectModal();
+  showTaskModal();
+  createDefaultProjects();
   HighlightSidebar();
-  newTask();
-  liz();
-  allSidebarItems();
+}
+
+export function createInbox() {
+  const menuElement = document.querySelector("#menuInbox");
+  resetPage();
+  menuElement.classList.add("sidebar-active");
+  createTaskContainer();
+  createItems("Inbox");
 }
 
 // Add new task
 function newTask() {
-  const TaskArray = [];
+  const projectTasks = {};
   const buttonAdd = document.querySelector(".button-add");
+
   buttonAdd.addEventListener("click", function (e) {
     e.preventDefault();
+
     const taskTitle = document.querySelector("#taskTitle").value;
     const taskPriority = document.querySelector("#taskPriority").value;
     const taskDate = document.querySelector("#taskDate").value;
-    const divElements = document.querySelectorAll(".menuEl");
-    if (taskTitle == "") {
+    const form = document.querySelector("#TaskForm");
+
+    if (taskTitle === "") {
       console.log("error");
     } else {
-      // for (const divElement of divElements) {
-      //   if (divElement.getElementsByClassName("sidebar-active")) {
-      //     console.log(divElement);
-      //   } else {
-      //     console.log("I can't find it ");
-      //   }
-      // }
       // Create new Task Object and push into an array
-      let task = new createTask(taskTitle, taskPriority, taskDate);
-      // saveToStorage(task);
-      TaskArray.push(task);
-      createNewTaskDiv(task);
+      const task = new createTask(taskTitle, taskPriority, taskDate);
+
+      // Update UI
+      createTaskDiv(task);
       toggleTaskClass();
+      form.reset();
+      const selectedPage = getSelectedPage();
+      console.log(selectedPage);
+      if (selectedPage) {
+        // If the project doesn't exist, create it with an empty array
+        if (!projectTasks[selectedPage]) {
+          projectTasks[selectedPage] = [];
+        }
+
+        // Update task array within the projectTasks object
+        projectTasks[selectedPage].push(task);
+        console.log(projectTasks);
+      }
     }
   });
 }
 
 // Create new project using form
 function NewListItem() {
-  const projects = [];
-  const buttonAdd = document.querySelector(".button-add-project");
-  buttonAdd.addEventListener("click", function (e) {
+  const buttonAddProject = document.querySelector(".button-add-project");
+  buttonAddProject.addEventListener("click", function (e) {
     e.preventDefault();
     const projectTitle = document.querySelector("#form-id").value;
-    console.log(projectTitle);
     if (projectTitle == "") {
       console.log("something went wrong");
     } else {
       // Create new Object and push into an Array
-      let project = new addNewProject(projectTitle);
-      projects.push(project);
+      const project = new addNewProject(projectTitle);
+      const title = project.title;
 
-      createNewProjectDiv(project);
       ToggleProjectClass();
       detectProjectClick();
-      HighlightSidebar();
+
+      const projectElement = createProjectDiv(project);
+      handleMenuType(title);
     }
   });
 }
 
-// Create inbox content
-export function createInbox() {
-  const mainHeader = document.querySelector(".content h1");
-
-  mainHeader.textContent = "Inbox";
-  content.prepend(mainHeader);
-  inbox.classList.add("sidebar-active");
-  const tasks = document.createElement("div");
-  tasks.classList.add("taskContainer");
-  content.appendChild(tasks);
-}
-
-function liz() {
-  const InboxArray = [];
-  const TodayArray = [];
-  const NextWeekArray = [];
-  const ImportantArray = [];
-  const CompletedArray = [];
-
+function createDefaultProjects() {
   const Inbox = document.querySelector("#menuInbox");
   const Today = document.querySelector("#menuToday");
   const NextWeek = document.querySelector("#menuWeek");
   const Important = document.querySelector("#menuImportant");
   const Completed = document.querySelector("#menuCompleted");
-  Inbox.addEventListener("click", function () {
-    // resetPage();
-    createItems("Inbox");
-    createTaskContainer();
-    // HighlightSidebar();
-  });
-  Today.addEventListener("click", function () {
-    // resetPage();
-    createItems("Today");
-    createTaskContainer();
-    HighlightSidebar();
-  });
-  NextWeek.addEventListener("click", function () {
-    // resetPage();
-    createItems("Next Week");
-    createTaskContainer();
-    HighlightSidebar();
-  });
-  Important.addEventListener("click", function () {
-    // resetPage();
-    createItems("Important");
-    createTaskContainer();
-    HighlightSidebar();
-  });
-  Completed.addEventListener("click", function () {
-    // resetPage();
-    createItems("Completed");
-    createTaskContainer();
-    // generateIt();
-    HighlightSidebar();
-  });
-  // generateItems()
-  // createItems(InboxArray);
+  const demoProject = document.querySelector(".demoProject");
+
+  Inbox.addEventListener("click", () => handleMenuType("Inbox"));
+  Today.addEventListener("click", () => handleMenuType("Today"));
+  NextWeek.addEventListener("click", () => handleMenuType("Next Week"));
+  Important.addEventListener("click", () => handleMenuType("Important"));
+  Completed.addEventListener("click", () => handleMenuType("Completed"));
+  demoProject.addEventListener("click", () => handleMenuType("Demo Project"));
 }
-function createTaskContainer() {
-  const tasks = document.createElement("div");
-  tasks.classList.add("taskContainer");
-  content.appendChild(tasks);
-}
-function generateItems() {
-  // Funkcja która zapisuje w którym jest elemencie za pomocą selected-element, ternary operators albo if statements
-  //  (i.e.) klikamy add Task wpisujemy dane, tworzy nam element i podczas tworzenia tego elementu przywolujemy funkcje ktora patrzy ktory menu element jest aktualnie wybrany, jezeli to "Today" to dodaje to do "arraya Today"
-  // W kazdym addEventListenerze (Inbox,Today...) będzie funkcja egzekwowana która będzie z tego arraya tworzyć itemy za każdym klikie m
-}
-function checkSelected() {
-  const element = document.querySelector(".sidebar-active");
-  console.log(element, "Hi");
-}
-function generateIt() {
-  createItems();
-  createContent();
-}
-// On "+" click next to Projects, toggle box visibility to create a new Project
+
+// Change project modal visibility
 function showProjectModal() {
   const addProject = document.querySelector(".add-project-modal");
   addProject.addEventListener("click", function () {
@@ -165,20 +123,29 @@ function showProjectModal() {
     });
   });
 }
-// On "Add new Task" click, toggle box visibility to create new Task
-function addNewTask() {
+// Change task modal visibility
+function showTaskModal() {
   const addTaskBtn = document.querySelector(".addTaskBtn");
   addTaskBtn.addEventListener("click", function () {
     setTimeout(() => {
       toggleTaskClass();
       DetectClick();
+      newTask();
     });
   });
 }
-// function
-function allSidebarItems() {
-  const element = document.querySelectorAll(".sidebarEl");
-  element.forEach((e) => {
-    resetPage();
-  });
+
+export function handleMenuType(type) {
+  resetPage();
+  highlightProjects();
+  createTaskContainer();
+  createItems(type);
+  showTaskModal();
+}
+function highlightProjects() {
+  const elements = document.querySelectorAll(".menuEl");
+  for (let i = 0; i < elements.length; i++) {
+    console.log("Clear event");
+    HighlightSidebar();
+  }
 }

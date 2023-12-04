@@ -1,9 +1,6 @@
-import { createInbox } from "./Modules/menuEvents";
-import resetContent from "./Modules/resetPage";
-import addMenuEvents from "./Modules/menuEvents";
-
+import addMenuEvents from "./Modules/Events";
+import { createInbox } from "./Modules/Events";
 document.addEventListener("DOMContentLoaded", function () {
-  resetContent();
-  addMenuEvents();
   createInbox();
+  addMenuEvents();
 });
