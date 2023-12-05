@@ -1,6 +1,6 @@
 import resetPage from "./resetPage";
 import { handleMenuType } from "./Events";
-export default function (text) {
+export default function createItems(text) {
   const content = document.querySelector(".content");
   const mainHeader = document.createElement("h1");
   const addTaskBtn = document.createElement("div");
@@ -9,26 +9,34 @@ export default function (text) {
 
   mainHeader.textContent = text;
   addTaskText.textContent = "Add new Task";
-
   addTaskBtn.classList.add("addTaskBtn");
 
   content.prepend(mainHeader);
   taskContainer.appendChild(addTaskBtn);
   addTaskBtn.appendChild(addTaskText);
 }
+
+export function createInbox() {
+  const menuElement = document.querySelector("#menuInbox");
+  resetPage();
+  menuElement.classList.add("sidebar-active");
+  createTaskContainer();
+  createItems("Inbox");
+}
+
 export function createTaskDiv(task) {
   const taskContainer = document.querySelector(".taskContainer");
   const taskTemplate = document.querySelector("#TodoTaskTemplate");
   const taskDiv = document.createElement("div");
   const taskId = task.id;
   const date = task.date;
-
-  taskDiv.classList.add("todo-item", taskId);
+  taskDiv.classList.add("todo-item", "task-item" + taskId);
 
   taskDiv.append(taskTemplate.content.cloneNode(true));
+
+  taskContainer.prepend(taskDiv);
   taskDiv.querySelector(".toDoTaskName").textContent = task.title;
   taskDiv.querySelector(".toDoTaskDate").textContent = date;
-  taskContainer.prepend(taskDiv);
 
   const priorityElement = taskDiv.querySelector(".taskPriority");
   const priority = task.priority;
@@ -49,6 +57,7 @@ export function createTaskDiv(task) {
     priorityElement.classList.toggle("fa-circle-check");
   });
 }
+
 export function createProjectDiv(project) {
   const createdProjects = document.querySelector(".created-projects");
   const projectContainer = document.createElement("div");
@@ -65,16 +74,7 @@ export function createProjectDiv(project) {
   });
   projectContainer.classList.add("sidebar-active");
 }
-function generateTask() {
-  const allMenuElements = document.querySelectorAll(".menuEl");
-  allMenuElements.forEach((menuElement) => {
-    menuElement.addEventListener("click", function () {
-      const mainHeader = document.querySelector(".content h1");
-      mainHeader.textContent = menuElement.textContent;
-      content.prepend(mainHeader);
-    });
-  });
-}
+
 export function createTaskContainer() {
   const content = document.querySelector(".content");
   const tasks = document.createElement("div");

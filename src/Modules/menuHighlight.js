@@ -18,3 +18,10 @@ function removeSidebar() {
   const allMenuElements = document.querySelectorAll(".menuEl");
   allMenuElements.forEach((el) => el.classList.remove("sidebar-active"));
 }
+export function getSelectedPage() {
+  const selectedElement = document.querySelector(".sidebar-active");
+  if (selectedElement) {
+    console.log(selectedElement.textContent.trim());
+    return selectedElement.textContent.trim();
+  }
+}
