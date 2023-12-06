@@ -14,25 +14,20 @@
     <div id="container">
       <div class="sidebar sidebar-show">
         <ul class="sidebar-menu">
-          <li id="menuInbox" class="menuEl">
-            <i class="fa-regular fa-envelope" style="color: #ffffff"></i
-            ><a>Inbox</a>
+          <li id="menuInbox" class="menuEl menuElement">
+            <i class="fa-regular fa-envelope"></i><a>Inbox</a>
           </li>
-          <li id="menuToday" class="menuEl">
-            <i class="fa-regular fa-calendar" style="color: #ffffff"></i
-            ><a>Today</a>
+          <li id="menuToday" class="menuEl menuElement">
+            <i class="fa-regular fa-calendar"></i><a>Today</a>
           </li>
-          <li id="menuWeek" class="menuEl">
-            <i class="fa-regular fa-calendar-days" style="color: #ffffff"></i
-            ><a>Next Week</a>
+          <li id="menuWeek" class="menuEl menuElement">
+            <i class="fa-regular fa-calendar-days"></i><a>Next Week</a>
           </li>
-          <li id="menuImportant" class="menuEl">
-            <i class="fa-regular fa-star" style="color: #ffffff"></i
-            ><a>Important</a>
+          <li id="menuImportant" class="menuEl menuElement">
+            <i class="fa-regular fa-star"></i><a>Important</a>
           </li>
-          <li id="menuCompleted" class="menuEl">
-            <i class="fa-regular fa-calendar-check" style="color: #ffffff"></i
-            ><a>Completed</a>
+          <li id="menuCompleted" class="menuEl menuElement">
+            <i class="fa-regular fa-calendar-check"></i><a>Completed</a>
           </li>
         </ul>
         <ul class="sidebar-project">
@@ -46,13 +41,13 @@
           </header>
 
           <div class="created-projects" data-lists>
-            <div class="project demoProject">
-              <li class="menuEl demoProject"><a>Demo Project</a></li>
+            <div class="project demoProject menuElement">
+              <li class="demoProject"><a>Demo Project</a></li>
               <i class="edit edit-project"></i>
               <i class="delete remove-thrash"></i>
             </div>
             <template id="projectTmpl">
-              <li class="menuEl"><a class="projectName"></a></li>
+              <li class=""><a class="projectName"></a></li>
               <i class="edit edit-project"></i>
               <i class="delete remove-thrash"></i>
             </template>
@@ -77,25 +72,36 @@
           class="taskEdit fa-regular fa-pen-to-square"
           style="color: #ffffff"
         ></i>
-        <i
-          class="taskRemove fa-regular fa-trash-can"
-          style="color: #fafafa"
-        ></i>
+        <i class="taskRemove fa-regular fa-trash-can"></i>
       </template>
       <div class="modal-box none">
         <h2>New Task</h2>
         <form action="GET" id="TaskForm">
           <label for="taskTitle">Task Title *</label>
-          <input type="text" id="taskTitle" />
+          <input type="text" id="taskTitle" value="" />
           <label for="priority">Priority</label>
-          <select name="priority" id="taskPriority" required>
+          <select name="priority" id="taskPriority" required value="">
             <option value="" selected disabled>--Select priority--</option>
             <option value="priorityLow">Low</option>
             <option value="priorityMedium">Medium</option>
             <option value="priorityHigh">High</option>
           </select>
+
           <label for="schedule">Schedule</label>
-          <input type="date" name="schedule" id="taskDate" autocomplete="off" />
+
+          <input
+            type="date"
+            name="schedule"
+            id="taskDate"
+            autocomplete="off"
+            value=""
+          />
+          <label for="project">Project*</label>
+          <select name="project" id="selectProject" required value="">
+            <option selected disabled value="">--Select Project--</option>
+
+            <option value="Demo Project">Demo Project</option>
+          </select>
           <div class="modal-buttons">
             <button class="btn-task-cancel btn-cancel" type="button">
               Cancel
