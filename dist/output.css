@@ -125,15 +125,18 @@ body {
   margin-left: 25px;
 }
 
-.menuEl {
+.menuElement {
   user-select: none;
   cursor: pointer;
 }
 
-.menuEl:hover {
+.menuElement:hover {
   filter: brightness(80%);
 }
-
+.sidebar > ul > li > i {
+  color: var(--text--grey);
+  /* color: white; */
+}
 /* Content */
 .content {
   grid-column: 2/3;
@@ -186,6 +189,7 @@ body {
 
 .modal-box input,
 .modal-box select {
+  font-size: 1.5rem;
   width: 80%;
   margin: 10px 20px;
   padding: 10px;
@@ -261,10 +265,15 @@ body {
 }
 
 .taskRemove {
-  color: white;
+  color: red;
   content: "\f2ed";
+  padding: 5px;
+  margin: 0 10px;
 }
-
+.taskEdit {
+  margin: 0 10px;
+  padding: 5px;
+}
 .taskbtn {
   margin-left: 20px;
   display: block;
