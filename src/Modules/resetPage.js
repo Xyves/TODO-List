@@ -5,7 +5,7 @@ export default function () {
   deleteClass();
 }
 function deleteClass() {
-  const elements = document.querySelectorAll(".menuEl");
+  const elements = document.querySelectorAll(".menuElement");
   elements.forEach((element) => {
     element.classList.remove("sidebar-active");
   });
