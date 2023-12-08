@@ -1,10 +1,9 @@
 import {
-  createItemsDiv,
   createTaskDiv,
   createProjectDiv,
   createTaskContainer,
   createNewProject,
-  createProjectHeader,
+  updateHeaderFromSidebar,
   setProjectOption,
 } from "./createMenuItems";
 import resetPage from "./resetPage";
@@ -13,23 +12,21 @@ import {
   ToggleProjectClass,
   toggleTaskClass,
   detectProjectClick,
-  detectTaskClick,
+  showProjectModal,
+  showTaskModal,
 } from "./changeVisibility";
 import addNewProject from "./createProject";
-import HighlightSidebar, {
-  highlightAllProjects,
-  getSelectedPage,
-} from "./menuHighlight";
+import HighlightSidebar from "./menuHighlight";
 import { format, getWeek } from "date-fns";
 // Functions when loading the page
 export default function loadAllFunctions() {
-  NewListItem();
+  setLocalStorage();
+  loadLocalProjects();
+  createProject();
   showProjectModal();
   showTaskModal();
-  createDefaultProjects();
-  loadLocalProjects();
-  loadInboxLocalStorage();
   loadLocalStorageTask();
+  createDefaultProjects();
   HighlightSidebar();
 }
 
@@ -41,7 +38,13 @@ const projectTasks = {
   Completed: [],
   "Demo Project": [],
 };
-export function loadLocalStorageTask(title) {
+function setLocalStorage() {
+  if (window.localStorage.length === 0) {
+    localStorage.setItem("projectTasks", JSON.stringify(projectTasks));
+  }
+}
+export function loadLocalStorageTask() {
+  const title = document.querySelector(".sidebar-active");
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
   let tasksForProject = userInfoParsed[title];
@@ -53,7 +56,7 @@ export function loadLocalStorageTask(title) {
   }
 }
 
-function loadInboxLocalStorage() {
+export function loadInboxLocalStorage() {
   const selectedElement =
     document.querySelector(".sidebar-active a").textContent;
   console.log(selectedElement);
@@ -61,26 +64,23 @@ function loadInboxLocalStorage() {
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
 
-  if (userInfoParsed && userInfoParsed.hasOwnProperty("Inbox")) {
-    loadLocalStorageTask("Inbox");
+  if (userInfoParsed && userInfoParsed.hasOwnProperty()) {
+    loadLocalStorageTask();
   }
 }
 // Add new task
-function setTask() {
+export function setTask() {
   const buttonAdd = document.querySelector(".button-add");
   buttonAdd.addEventListener("click", function (e) {
-    e.preventDefault();
-
     const taskTitle = document.querySelector("#taskTitle").value;
     const taskPriority = document.querySelector("#taskPriority").value;
     let taskFormDate = document.querySelector("#taskDate").value;
-    const form = document.querySelector("#TaskForm");
     const selectedProject = document.querySelector("#selectProject").value;
-    console.log(selectedProject);
-
-    if (taskTitle == "" || taskPriority == "" || selectedProject == "") {
-      console.log("error");
-      return false;
+    const form = document.querySelector("#TaskForm");
+    e.preventDefault();
+    // selectedElement.classList.add();
+    if (taskTitle === "" || taskPriority === "" || selectedProject === "") {
+      console.log("error 2");
     } else {
       let taskDate;
       if (!taskFormDate) {
@@ -90,39 +90,41 @@ function setTask() {
       }
       // Create new Task Object
       const task = new createTask(taskTitle, taskPriority, taskDate);
-      projectTasks.Inbox.push(task);
       const userInfo = localStorage.getItem("projectTasks");
       const userInfoParsed = JSON.parse(userInfo);
-      // if (!userInfoParsed[selectedProject]) {
-      //   userInfoParsed[selectedProject] = [];
-      //   console.log(
-      //     `Created a new array for the project '${selectedProject}'.`
-      //   );
-      // }
-      // Update UI
-      createTaskDiv(task);
-      toggleTaskClass();
+      userInfoParsed.Inbox.push(task);
+      if (!userInfoParsed[selectedProject]) {
+        userInfoParsed[selectedProject] = [];
+      }
+      const currentActiveProject = document.querySelector(".sidebar-active");
+      if (currentActiveProject === selectedProject) {
+        createTaskDiv(task);
+      }
       userInfoParsed[selectedProject].push(task);
-      form.reset();
+
+      // Update UI
+      toggleTaskClass();
 
       const currentDate = format(new Date(), "dd/MM/yyyy");
       const currentDateWeek = getWeek(new Date());
       const parsedDate = Date.parse(taskDate);
       const setDateWeek = getWeek(parsedDate);
       if (currentDate == taskDate) {
-        projectTasks.Today.push(task);
+        userInfoParsed.Today.push(task);
       }
       if (taskPriority == "priorityHigh") {
-        projectTasks.Important.push(task);
+        userInfoParsed.Important.push(task);
       }
       if (task.isCompleted == true) {
-        projectTasks.Completed.push(task);
+        userInfoParsed.Completed.push(task);
       }
       if (currentDateWeek + 1 == setDateWeek) {
-        projectTasks["Next Week"].push(task);
+        userInfoParsed["Next Week"].push(task);
       }
+      form.reset();
+
       // Save projectTasks to localStorage
-      localStorage.setItem("projectTasks", JSON.stringify(projectTasks));
+      localStorage.setItem("projectTasks", JSON.stringify(userInfoParsed));
     }
   });
 }
@@ -157,12 +159,13 @@ function loadLocalProjects() {
   ];
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
-  if (userInfo) {
+  if (userInfoParsed) {
     Object.keys(userInfoParsed).forEach((key) => {
       if (!excludedKeys.includes(key)) {
         // Create a new project with the key (project name)
         createNewProject({ name: key });
         setProjectOption(key);
+        setTask();
       }
     });
     return;
@@ -171,16 +174,18 @@ function loadLocalProjects() {
 
 export function handleMenu(type) {
   resetPage();
-  createTaskContainer();
-  createItemsDiv(type);
+  // HighlightSidebar();
+  createTaskContainer(type);
   showTaskModal();
-  loadLocalStorageTask(type);
-  NewListItem();
+  loadLocalStorageTask();
+  createProject();
 }
 // Create new project using form
-function NewListItem() {
+function createProject() {
   const buttonAddProject = document.querySelector(".button-add-project");
+  console.log(buttonAddProject);
   buttonAddProject.addEventListener("click", function (e) {
+    resetPage();
     const projectTitleInput = document.querySelector("#form-id");
     const projectTitle = projectTitleInput.value.trim();
     console.log(projectTitle);
@@ -195,14 +200,16 @@ function NewListItem() {
       // Create new Object
       const project = new addNewProject(projectTitle);
       const title = project.title;
-
+      HighlightSidebar();
+      updateHeaderFromSidebar(title);
+      createProjectDiv(project);
+      createTaskContainer();
       ToggleProjectClass();
       detectProjectClick();
-      createProjectDiv(project);
       setProjectOption(title);
-      createItemsDiv(title);
+      setTask();
+      showTaskModal();
 
-      // showTaskModal();
       const storedProjectTasksString = localStorage.getItem("projectTasks");
       const storedProjectTasks = storedProjectTasksString
         ? JSON.parse(storedProjectTasksString)
@@ -215,17 +222,15 @@ function NewListItem() {
     }
   });
 }
-export function handleMenuDefaultType(type) {
+export function handleMenuDefaultType(text) {
   resetPage();
-  highlightAllProjects();
+  updateHeaderFromSidebar(text);
   createTaskContainer();
-  createItemsDiv(type);
-  // showTaskModal();
-  // NewListItem();
-  loadLocalStorageTask(type);
+  showTaskModal();
+  loadLocalStorageTask();
 }
 
-function createDefaultProjects() {
+export function createDefaultProjects() {
   const Inbox = document.querySelector("#menuInbox");
   const Today = document.querySelector("#menuToday");
   const NextWeek = document.querySelector("#menuWeek");
@@ -235,36 +240,10 @@ function createDefaultProjects() {
 
   Inbox.addEventListener("click", () => handleMenuDefaultType("Inbox"));
   Today.addEventListener("click", () => handleMenuDefaultType("Today"));
-  NextWeek.addEventListener("click", () => handleMenuDefaultType("Next Week"));
+  NextWeek.addEventListener("click", () => handleMenuDefaultType("Week"));
   Important.addEventListener("click", () => handleMenuDefaultType("Important"));
   Completed.addEventListener("click", () => handleMenuDefaultType("Completed"));
   demoProject.addEventListener("click", () =>
     handleMenuDefaultType("Demo Project")
   );
-}
-// NewListItem()
-// Change project modal visibility
-function showProjectModal() {
-  const addProject = document.querySelector(".add-project-modal");
-  addProject.addEventListener("click", function () {
-    const form = document.querySelector(".addProject");
-    form.reset();
-    setTimeout(() => {
-      ToggleProjectClass();
-      detectProjectClick();
-    });
-  });
-}
-// Change task modal visibility
-function showTaskModal() {
-  const addTaskBtn = document.querySelector(".addTaskBtn");
-  if (addTaskBtn) {
-    addTaskBtn.addEventListener("click", function () {
-      setTimeout(() => {
-        toggleTaskClass();
-        detectTaskClick();
-        setTask();
-      });
-    });
-  }
 }
