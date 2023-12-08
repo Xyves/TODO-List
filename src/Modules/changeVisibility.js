@@ -1,4 +1,4 @@
-export default function ToggleTaskClass() {
+export function toggleTaskClass() {
   const modalBox = document.querySelector(".modal-box");
   modalBox.classList.toggle("none");
   modalBox.classList.toggle("visible");
@@ -51,9 +51,7 @@ export function detectProjectClick() {
         projectBox.classList.remove("visible");
         uniqueTitle.textContent = "";
       } else {
-        console.log("You clicked inside!");
       }
-      console.log("You clicked inside!");
     } else {
       projectBox.classList.add("none");
       projectBox.classList.remove("visible");

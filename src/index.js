@@ -1,6 +1,7 @@
-import addMenuEvents from "./Modules/Events";
-import { createInbox } from "./Modules/Events";
+import loadAllFunctions from "./Modules/Events";
+import { createInbox } from "./Modules/createMenuItems";
+import { loadLocalStorage } from "./Modules/Events";
 document.addEventListener("DOMContentLoaded", function () {
   createInbox();
-  addMenuEvents();
+  loadAllFunctions();
 });
