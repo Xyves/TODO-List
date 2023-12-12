@@ -5,11 +5,11 @@ import {
   handleMenu,
   loadInboxLocalStorage,
   setTask,
+  loadLocalStorageTask,
 } from "./Events";
 import { showTaskModal } from "./changeVisibility";
 const content = document.querySelector(".content");
 export function updateHeaderFromSidebar(text) {
-  console.log("this is text header" + text);
   const content = document.querySelector(".content");
 
   const mainHeader = document.createElement("h1");
@@ -31,8 +31,10 @@ export function createItemsDiv() {
 export function createInbox() {
   const menuElement = document.querySelector("#menuInbox");
   menuElement.classList.add("sidebar-active");
+  const title = "Inbox";
   createTaskContainer();
-  loadInboxLocalStorage();
+  loadLocalStorageTask(title);
+
   updateHeaderFromSidebar("Inbox");
   setTask();
   showTaskModal();
@@ -79,7 +81,6 @@ export function createNewProject(project) {
   projectContainer.append(projectTmpl.content.cloneNode(true));
   projectContainer.querySelector(".projectName").textContent = project.name;
 
-  console.log(project.name);
   projectContainer.addEventListener("click", function () {
     handleMenu(project.name);
     projectContainer.classList.add("sidebar-active");

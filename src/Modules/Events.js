@@ -27,6 +27,7 @@ export default function loadAllFunctions() {
   showTaskModal();
   createDefaultProjects();
   HighlightSidebar();
+  showTaskModal();
 }
 
 const projectTasks = {
@@ -116,7 +117,11 @@ export function setTask() {
         : null;
       console.log("current active project is:" + currentActiveProject);
       console.log("current selected" + selectedProject);
+      const inbox = document.querySelector("#menuInbox");
       if (currentActiveProject === selectedProject) {
+        createTaskDiv(task);
+        console.log("Task created!");
+      } else if (currentActiveProjectElement === inbox) {
         createTaskDiv(task);
         console.log("Task created!");
       }
