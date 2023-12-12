@@ -78,8 +78,30 @@ export function showTaskModal() {
       setTimeout(() => {
         toggleTaskClass();
         detectTaskClick();
-        // setTask();
       });
     });
   }
 }
+export function removeTaskLogic() {
+  const removeButtons = document.querySelectorAll(".todo-item .taskRemove");
+  console.log(removeButtons);
+  removeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const todoItem = button.closest(".todo-item");
+      const uniqueId = todoItem.id;
+      const title = todoItem.textContent
+     
+      if (todoItem) {
+        todoItem.remove();
+      }
+      removeFromLocalStorage(category, uniqueId, title);
+    });
+  });
+}
+function removeFromLocalStorage(category, uniqueId, title) {
+  const userInfo = localStorage.getItem("projectTasks");
+  const userInfoParsed = JSON.parse(userInfo) || [];
+  const updatedData = userInfo.filter((item) => item.id !== uniqueId );
+  localStorage.setItem("projectTasks", JSON.stringify(updatedData));
+}
+//

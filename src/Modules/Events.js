@@ -14,11 +14,13 @@ import {
   detectProjectClick,
   showProjectModal,
   showTaskModal,
+  removeTaskLogic,
 } from "./changeVisibility";
 import addNewProject from "./createProject";
 import HighlightSidebar from "./menuHighlight";
 import { format, getWeek } from "date-fns";
-// Functions when loading the page
+
+// Run functions on DOM load
 export default function loadAllFunctions() {
   setLocalStorage();
   loadLocalProjects();
@@ -44,23 +46,14 @@ function setLocalStorage() {
   }
 }
 export function loadLocalStorageTask(title) {
-  // const titleEl = document.querySelector(".sidebar-active a");
-  // const textContent = titleEl.textContent;
-  // console.log(textContent + "????");
-  // const title = text ? text.textContent.trim() : null;
-
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
 
-  console.log(userInfoParsed);
-  console.log("Trying to load task");
   if (userInfoParsed && title !== null && userInfoParsed[title]) {
     const tasksForProject = userInfoParsed[title];
-    console.log(`Tasks for project '${title}':`, tasksForProject);
 
     tasksForProject.forEach((task) => {
       createTaskDiv(task);
-      console.log("Logged task:", task);
     });
   } else {
     console.log(
@@ -69,18 +62,6 @@ export function loadLocalStorageTask(title) {
   }
 }
 
-export function loadInboxLocalStorage() {
-  const selectedElement =
-    document.querySelector(".sidebar-active a").textContent;
-  console.log(selectedElement);
-
-  const userInfo = localStorage.getItem("projectTasks");
-  const userInfoParsed = JSON.parse(userInfo);
-  if (userInfoParsed && userInfoParsed.hasOwnProperty(selectedElement)) {
-    console.log("Beep");
-    loadLocalStorageTask();
-  }
-}
 // Add new task
 export function setTask() {
   const buttonAdd = document.querySelector(".button-add");
@@ -92,7 +73,7 @@ export function setTask() {
     const form = document.querySelector("#TaskForm");
     e.preventDefault();
     if (!taskTitle && !selectedProject) {
-      console.log("error 2");
+      console.log("error ");
     } else {
       let taskDate;
       if (!taskFormDate) {
@@ -115,15 +96,12 @@ export function setTask() {
       const currentActiveProject = currentActiveProjectElement
         ? currentActiveProjectElement.textContent.trim()
         : null;
-      console.log("current active project is:" + currentActiveProject);
-      console.log("current selected" + selectedProject);
+
       const inbox = document.querySelector("#menuInbox");
       if (currentActiveProject === selectedProject) {
         createTaskDiv(task);
-        console.log("Task created!");
       } else if (currentActiveProjectElement === inbox) {
         createTaskDiv(task);
-        console.log("Task created!");
       }
 
       userInfoParsed[selectedProject].push(task);
@@ -209,7 +187,6 @@ export function handleMenu(type) {
 // Create new project using form
 function createProject() {
   const buttonAddProject = document.querySelector(".button-add-project");
-  console.log(buttonAddProject);
   buttonAddProject.addEventListener("click", function (e) {
     const projectTitleInput = document.querySelector("#form-id");
     const projectTitle = projectTitleInput.value.trim();
@@ -217,6 +194,7 @@ function createProject() {
 
     if (!isProjectTitleUnique(projectTitle)) {
       console.log("Project title is not unique");
+    } else if (projectTitle === "") {
     } else {
       // Create new Object
       const project = new addNewProject(projectTitle);
@@ -268,7 +246,7 @@ export function handleMenuDefaultType(text) {
   HighlightSidebar();
   updateHeaderFromSidebar(text);
   showTaskModal();
-  console.log("monka");
+  removeTaskLogic();
   loadLocalStorageTask(text);
   setTask();
 }

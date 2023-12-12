@@ -7,6 +7,7 @@ import {
   setTask,
   loadLocalStorageTask,
 } from "./Events";
+import { removeTaskLogic } from "./changeVisibility";
 import { showTaskModal } from "./changeVisibility";
 const content = document.querySelector(".content");
 export function updateHeaderFromSidebar(text) {
@@ -46,8 +47,8 @@ export function createTaskDiv(task) {
   const taskDiv = document.createElement("div");
   const taskId = task.id;
   const date = task.date;
-  taskDiv.classList.add("todo-item", "task-item" + taskId);
-
+  taskDiv.classList.add("todo-item");
+  taskDiv.setAttribute("id", "task-item" + taskId);
   taskDiv.append(taskTemplate.content.cloneNode(true));
 
   taskContainer.prepend(taskDiv);
@@ -72,6 +73,7 @@ export function createTaskDiv(task) {
     priorityElement.classList.toggle("fa-circle");
     priorityElement.classList.toggle("fa-circle-check");
   });
+  removeTaskLogic();
 }
 export function createNewProject(project) {
   const createdProjects = document.querySelector(".created-projects");
@@ -99,6 +101,7 @@ export function createProjectDiv(project) {
   projectContainer.addEventListener("click", function () {
     handleMenu(project.title);
     handleProjectClick(projectContainer);
+    removeTaskLogic();
   });
   createdProjects.appendChild(projectContainer);
 }
