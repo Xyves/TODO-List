@@ -102,6 +102,8 @@ export function setTask() {
       // Create new Task Object
       const task = new createTask(taskTitle, taskPriority, taskDate);
       const userInfo = localStorage.getItem("projectTasks");
+
+      //
       const userInfoParsed = JSON.parse(userInfo);
       userInfoParsed.Inbox.push(task);
       if (!userInfoParsed[selectedProject]) {
@@ -148,7 +150,7 @@ export function setTask() {
   });
 }
 function isProjectTitleUnique(newProjectTitle) {
-  const projectElements = document.querySelectorAll(".menuElement");
+  const projectElements = document.querySelectorAll(".menuElement li");
   const mainProjects = document.querySelectorAll(".menuEl a");
   const uniqueTitle = document.querySelector("#uniqueTitle");
 
@@ -184,7 +186,6 @@ function loadLocalProjects() {
         // Create a new project with the key (project name)
         createNewProject({ name: key });
         setProjectOption(key);
-        // setTask();
       }
     });
     return;
@@ -194,7 +195,6 @@ function loadLocalProjects() {
 export function handleMenu(type) {
   resetPage();
   createTaskContainer(type);
-  // createProject();
   updateHeaderFromSidebar(type);
   HighlightSidebar();
   showTaskModal();

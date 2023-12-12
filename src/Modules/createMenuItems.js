@@ -6,7 +6,7 @@ import {
   loadInboxLocalStorage,
   setTask,
 } from "./Events";
-
+import { showTaskModal } from "./changeVisibility";
 const content = document.querySelector(".content");
 export function updateHeaderFromSidebar(text) {
   console.log("this is text header" + text);
@@ -34,6 +34,8 @@ export function createInbox() {
   createTaskContainer();
   loadInboxLocalStorage();
   updateHeaderFromSidebar("Inbox");
+  setTask();
+  showTaskModal();
 }
 
 export function createTaskDiv(task) {
