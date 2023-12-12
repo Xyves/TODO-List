@@ -25,7 +25,6 @@ export default function loadAllFunctions() {
   createProject();
   showProjectModal();
   showTaskModal();
-  loadLocalStorageTask();
   createDefaultProjects();
   HighlightSidebar();
 }
@@ -43,16 +42,29 @@ function setLocalStorage() {
     localStorage.setItem("projectTasks", JSON.stringify(projectTasks));
   }
 }
-export function loadLocalStorageTask() {
-  const title = document.querySelector(".sidebar-active");
+export function loadLocalStorageTask(title) {
+  // const titleEl = document.querySelector(".sidebar-active a");
+  // const textContent = titleEl.textContent;
+  // console.log(textContent + "????");
+  // const title = text ? text.textContent.trim() : null;
+
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
-  let tasksForProject = userInfoParsed[title];
 
-  if (userInfoParsed && userInfoParsed[title]) {
+  console.log(userInfoParsed);
+  console.log("Trying to load task");
+  if (userInfoParsed && title !== null && userInfoParsed[title]) {
+    const tasksForProject = userInfoParsed[title];
+    console.log(`Tasks for project '${title}':`, tasksForProject);
+
     tasksForProject.forEach((task) => {
       createTaskDiv(task);
+      console.log("Logged task:", task);
     });
+  } else {
+    console.log(
+      `No tasks found for project '${title}' or tasks is not an array.`
+    );
   }
 }
 
@@ -63,8 +75,8 @@ export function loadInboxLocalStorage() {
 
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo);
-
-  if (userInfoParsed && userInfoParsed.hasOwnProperty()) {
+  if (userInfoParsed && userInfoParsed.hasOwnProperty(selectedElement)) {
+    console.log("Beep");
     loadLocalStorageTask();
   }
 }
@@ -78,8 +90,7 @@ export function setTask() {
     const selectedProject = document.querySelector("#selectProject").value;
     const form = document.querySelector("#TaskForm");
     e.preventDefault();
-    // selectedElement.classList.add();
-    if (taskTitle === "" || taskPriority === "" || selectedProject === "") {
+    if (!taskTitle && !selectedProject) {
       console.log("error 2");
     } else {
       let taskDate;
@@ -96,10 +107,18 @@ export function setTask() {
       if (!userInfoParsed[selectedProject]) {
         userInfoParsed[selectedProject] = [];
       }
-      const currentActiveProject = document.querySelector(".sidebar-active");
+      const currentActiveProjectElement =
+        document.querySelector(".sidebar-active");
+      const currentActiveProject = currentActiveProjectElement
+        ? currentActiveProjectElement.textContent.trim()
+        : null;
+      console.log("current active project is:" + currentActiveProject);
+      console.log("current selected" + selectedProject);
       if (currentActiveProject === selectedProject) {
         createTaskDiv(task);
+        console.log("Task created!");
       }
+
       userInfoParsed[selectedProject].push(task);
 
       // Update UI
@@ -165,7 +184,7 @@ function loadLocalProjects() {
         // Create a new project with the key (project name)
         createNewProject({ name: key });
         setProjectOption(key);
-        setTask();
+        // setTask();
       }
     });
     return;
@@ -174,40 +193,38 @@ function loadLocalProjects() {
 
 export function handleMenu(type) {
   resetPage();
-  // HighlightSidebar();
   createTaskContainer(type);
+  // createProject();
+  updateHeaderFromSidebar(type);
+  HighlightSidebar();
   showTaskModal();
-  loadLocalStorageTask();
-  createProject();
+  loadLocalStorageTask(type);
 }
+
 // Create new project using form
 function createProject() {
   const buttonAddProject = document.querySelector(".button-add-project");
   console.log(buttonAddProject);
   buttonAddProject.addEventListener("click", function (e) {
-    resetPage();
     const projectTitleInput = document.querySelector("#form-id");
     const projectTitle = projectTitleInput.value.trim();
-    console.log(projectTitle);
     e.preventDefault();
 
-    if (projectTitle == "") {
-      console.log("Something went wrong");
-      return false;
-    } else if (!isProjectTitleUnique(projectTitle)) {
+    if (!isProjectTitleUnique(projectTitle)) {
       console.log("Project title is not unique");
     } else {
       // Create new Object
       const project = new addNewProject(projectTitle);
       const title = project.title;
-      HighlightSidebar();
-      updateHeaderFromSidebar(title);
-      createProjectDiv(project);
+
+      resetPage();
       createTaskContainer();
+      createProjectDiv(project);
+      updateHeaderFromSidebar(title);
       ToggleProjectClass();
       detectProjectClick();
       setProjectOption(title);
-      setTask();
+
       showTaskModal();
 
       const storedProjectTasksString = localStorage.getItem("projectTasks");
@@ -222,13 +239,6 @@ function createProject() {
     }
   });
 }
-export function handleMenuDefaultType(text) {
-  resetPage();
-  updateHeaderFromSidebar(text);
-  createTaskContainer();
-  showTaskModal();
-  loadLocalStorageTask();
-}
 
 export function createDefaultProjects() {
   const Inbox = document.querySelector("#menuInbox");
@@ -240,10 +250,20 @@ export function createDefaultProjects() {
 
   Inbox.addEventListener("click", () => handleMenuDefaultType("Inbox"));
   Today.addEventListener("click", () => handleMenuDefaultType("Today"));
-  NextWeek.addEventListener("click", () => handleMenuDefaultType("Week"));
+  NextWeek.addEventListener("click", () => handleMenuDefaultType("Next Week"));
   Important.addEventListener("click", () => handleMenuDefaultType("Important"));
   Completed.addEventListener("click", () => handleMenuDefaultType("Completed"));
   demoProject.addEventListener("click", () =>
     handleMenuDefaultType("Demo Project")
   );
+}
+export function handleMenuDefaultType(text) {
+  resetPage();
+  createTaskContainer();
+  HighlightSidebar();
+  updateHeaderFromSidebar(text);
+  showTaskModal();
+  console.log("monka");
+  loadLocalStorageTask(text);
+  setTask();
 }

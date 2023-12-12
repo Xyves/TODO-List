@@ -1,20 +1,29 @@
 import resetPage from "./resetPage";
-import { handleMenuDefaultType, loadLocalStorage, handleMenu } from "./Events";
+import {
+  handleMenuDefaultType,
+  loadLocalStorage,
+  handleMenu,
+  loadInboxLocalStorage,
+  setTask,
+} from "./Events";
+
 const content = document.querySelector(".content");
-export function createProjectHeader(text) {
+export function updateHeaderFromSidebar(text) {
+  console.log("this is text header" + text);
+  const content = document.querySelector(".content");
+
   const mainHeader = document.createElement("h1");
   mainHeader.textContent = text;
   content.prepend(mainHeader);
 }
-export function createItemsDiv(text) {
+
+export function createItemsDiv() {
   const addTaskBtn = document.createElement("div");
   const addTaskText = document.createElement("p");
   const taskContainer = document.querySelector(".taskContainer");
 
   addTaskText.textContent = "Add new Task";
   addTaskBtn.classList.add("addTaskBtn");
-
-  createProjectHeader(text);
   taskContainer.appendChild(addTaskBtn);
   addTaskBtn.appendChild(addTaskText);
 }
@@ -23,7 +32,8 @@ export function createInbox() {
   const menuElement = document.querySelector("#menuInbox");
   menuElement.classList.add("sidebar-active");
   createTaskContainer();
-  createItemsDiv("Inbox");
+  loadInboxLocalStorage();
+  updateHeaderFromSidebar("Inbox");
 }
 
 export function createTaskDiv(task) {
@@ -67,7 +77,7 @@ export function createNewProject(project) {
   projectContainer.append(projectTmpl.content.cloneNode(true));
   projectContainer.querySelector(".projectName").textContent = project.name;
 
-  console.log(project);
+  console.log(project.name);
   projectContainer.addEventListener("click", function () {
     handleMenu(project.name);
     projectContainer.classList.add("sidebar-active");
@@ -82,25 +92,26 @@ export function createProjectDiv(project) {
   const projectTmpl = document.querySelector("#projectTmpl");
   projectContainer.append(projectTmpl.content.cloneNode(true));
   projectContainer.querySelector(".projectName").textContent = project.title;
+  projectContainer.classList.add("sidebar-active");
   projectContainer.addEventListener("click", function () {
-    handleMenu(project);
+    handleMenu(project.title);
+    handleProjectClick(projectContainer);
   });
   createdProjects.appendChild(projectContainer);
-
+}
+function handleProjectClick(clickedProject) {
   const elements = document.querySelectorAll(".menuElement");
   elements.forEach((project) => {
     project.classList.remove("sidebar-active");
-    console.log("inside");
   });
-  console.log("After");
-  projectContainer.classList.add("sidebar-active");
+  clickedProject.classList.add("sidebar-active");
 }
 
 export function createTaskContainer() {
-  const content = document.querySelector(".content");
-  const tasks = document.createElement("div");
-  tasks.classList.add("taskContainer");
-  content.appendChild(tasks);
+  const taskContainer = document.createElement("div");
+  taskContainer.classList.add("taskContainer");
+  content.appendChild(taskContainer);
+  createItemsDiv();
 }
 export function setProjectOption(title) {
   const formProjectOption = document.querySelector("#selectProject");

@@ -1,3 +1,4 @@
+import { setTask } from "./Events";
 export function toggleTaskClass() {
   const modalBox = document.querySelector(".modal-box");
   modalBox.classList.toggle("none");
@@ -41,7 +42,6 @@ export function detectTaskClick() {
 export function detectProjectClick() {
   window.addEventListener("click", function (e) {
     const projectBox = document.querySelector(".project-box");
-    const addProject = document.querySelector(".button-add-project");
     const cancelProject = document.querySelector(".button-project-cancel");
     const uniqueTitle = document.querySelector("#uniqueTitle");
 
@@ -58,4 +58,28 @@ export function detectProjectClick() {
       uniqueTitle.textContent = "";
     }
   });
+}
+export function showProjectModal() {
+  const addProject = document.querySelector(".add-project-modal");
+  addProject.addEventListener("click", function () {
+    const form = document.querySelector(".addProject");
+    form.reset();
+    setTimeout(() => {
+      ToggleProjectClass();
+      detectProjectClick();
+    });
+  });
+}
+// Change task modal visibility
+export function showTaskModal() {
+  const addTaskBtn = document.querySelector(".addTaskBtn");
+  if (addTaskBtn) {
+    addTaskBtn.addEventListener("click", function () {
+      setTimeout(() => {
+        toggleTaskClass();
+        detectTaskClick();
+        // setTask();
+      });
+    });
+  }
 }
