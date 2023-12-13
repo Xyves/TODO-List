@@ -121,10 +121,18 @@ body {
   margin-bottom: 25vh;
 }
 
-.project {
+.project li {
   margin-left: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.projectRemove {
+  margin: 0 auto;
+}
+.projectName {
+  margin-right: auto;
+}
 .menuElement {
   user-select: none;
   cursor: pointer;
@@ -135,7 +143,6 @@ body {
 }
 .sidebar > ul > li > i {
   color: var(--text--grey);
-  /* color: white; */
 }
 /* Content */
 .content {
@@ -239,6 +246,7 @@ body {
 
 .visible {
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, 0.75);
+  z-index: 2;
 }
 
 .none {
@@ -264,12 +272,14 @@ body {
   padding: 7px;
 }
 
-.taskRemove {
+.taskRemove,
+.projectRemove {
   color: red;
   content: "\f2ed";
   padding: 5px;
   margin: 0 10px;
 }
+
 .taskEdit {
   margin: 0 10px;
   padding: 5px;

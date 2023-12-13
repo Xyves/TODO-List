@@ -2,7 +2,7 @@ class newProject {
   static idCounter = 1;
   constructor(title) {
     this.title = title;
-    this.id = newProject.idCounter++;
+    this.id = this.constructor.idCounter++;
   }
   getTitle = () => {
     return this.title;

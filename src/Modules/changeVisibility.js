@@ -1,4 +1,6 @@
 import { setTask } from "./Events";
+import resetPage from "./resetPage";
+import { createInbox } from "./createMenuItems";
 export function toggleTaskClass() {
   const modalBox = document.querySelector(".modal-box");
   modalBox.classList.toggle("none");
@@ -84,24 +86,61 @@ export function showTaskModal() {
 }
 export function removeTaskLogic() {
   const removeButtons = document.querySelectorAll(".todo-item .taskRemove");
-  console.log(removeButtons);
   removeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const todoItem = button.closest(".todo-item");
       const uniqueId = todoItem.id;
-      const title = todoItem.textContent
-     
+
+      const taskUniqueId = uniqueId.charAt(uniqueId.length - 1);
+      console.log(taskUniqueId);
       if (todoItem) {
         todoItem.remove();
       }
-      removeFromLocalStorage(category, uniqueId, title);
+      removeFromLocalStorage(taskUniqueId, null);
     });
   });
 }
-function removeFromLocalStorage(category, uniqueId, title) {
+function removeFromLocalStorage(uniqueId, text) {
+  console.log("Does it work?");
+
+  // Get the data from local storage
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo) || [];
-  const updatedData = userInfo.filter((item) => item.id !== uniqueId );
-  localStorage.setItem("projectTasks", JSON.stringify(updatedData));
+  if (uniqueId !== undefined && uniqueId !== null) {
+    for (const key in userInfoParsed) {
+      if (userInfoParsed.hasOwnProperty(key)) {
+        for (let i = 0; i < userInfoParsed[key].length; i++) {
+          const task = userInfoParsed[key][i];
+
+          if (task.id == uniqueId) {
+            userInfoParsed[key].splice(i, 1);
+            i--;
+          }
+        }
+      }
+    }
+    console.log(text + "Hey");
+  } else if (text !== undefined && text !== null) {
+    for (const key in userInfoParsed) {
+      if (userInfoParsed.hasOwnProperty(key) && key === text) {
+        delete userInfoParsed[key];
+      }
+    }
+    localStorage.setItem("projectTasks", JSON.stringify(userInfoParsed));
+  }
 }
-//
+export function removeProjectLogic() {
+  const removeButtons = document.querySelectorAll(".project .projectRemove");
+  removeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const project = button.closest(".project");
+      const text = project.querySelector(".projectName").textContent;
+
+      if (project) {
+        project.remove();
+      }
+      removeFromLocalStorage(null, text);
+      createInbox();
+    });
+  });
+}

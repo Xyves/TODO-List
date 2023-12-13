@@ -1,10 +1,10 @@
 import { format, compareAsc } from "date-fns";
 class newTask {
-  static idCounter = 1;
+  static idCounter = 0;
   constructor(title, priority, date) {
     this.title = title;
     this.priority = priority;
-    this.id = newTask.idCounter++;
+    this.id = this.constructor.idCounter++;
     this.date = date;
     this.isCompleted = false;
   }

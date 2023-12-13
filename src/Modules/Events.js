@@ -15,6 +15,7 @@ import {
   showProjectModal,
   showTaskModal,
   removeTaskLogic,
+  removeProjectLogic,
 } from "./changeVisibility";
 import addNewProject from "./createProject";
 import HighlightSidebar from "./menuHighlight";
@@ -249,4 +250,5 @@ export function handleMenuDefaultType(text) {
   removeTaskLogic();
   loadLocalStorageTask(text);
   setTask();
+  removeProjectLogic();
 }

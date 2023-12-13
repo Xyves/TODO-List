@@ -7,8 +7,11 @@ import {
   setTask,
   loadLocalStorageTask,
 } from "./Events";
-import { removeTaskLogic } from "./changeVisibility";
-import { showTaskModal } from "./changeVisibility";
+import {
+  removeTaskLogic,
+  removeProjectLogic,
+  showTaskModal,
+} from "./changeVisibility";
 const content = document.querySelector(".content");
 export function updateHeaderFromSidebar(text) {
   const content = document.querySelector(".content");
@@ -30,12 +33,12 @@ export function createItemsDiv() {
 }
 
 export function createInbox() {
+  resetPage();
   const menuElement = document.querySelector("#menuInbox");
   menuElement.classList.add("sidebar-active");
   const title = "Inbox";
   createTaskContainer();
   loadLocalStorageTask(title);
-
   updateHeaderFromSidebar("Inbox");
   setTask();
   showTaskModal();
@@ -75,6 +78,7 @@ export function createTaskDiv(task) {
   });
   removeTaskLogic();
 }
+// load local storage projects
 export function createNewProject(project) {
   const createdProjects = document.querySelector(".created-projects");
   const projectContainer = document.createElement("div");
@@ -86,15 +90,18 @@ export function createNewProject(project) {
   projectContainer.addEventListener("click", function () {
     handleMenu(project.name);
     projectContainer.classList.add("sidebar-active");
+    removeProjectLogic();
   });
 
   createdProjects.appendChild(projectContainer);
 }
+// Function run when creating new project
 export function createProjectDiv(project) {
   const createdProjects = document.querySelector(".created-projects");
   const projectContainer = document.createElement("div");
   projectContainer.classList.add("project", "menuElement");
   const projectTmpl = document.querySelector("#projectTmpl");
+
   projectContainer.append(projectTmpl.content.cloneNode(true));
   projectContainer.querySelector(".projectName").textContent = project.title;
   projectContainer.classList.add("sidebar-active");
@@ -102,6 +109,7 @@ export function createProjectDiv(project) {
     handleMenu(project.title);
     handleProjectClick(projectContainer);
     removeTaskLogic();
+    removeProjectLogic();
   });
   createdProjects.appendChild(projectContainer);
 }
