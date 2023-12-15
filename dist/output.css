@@ -129,6 +129,7 @@ body {
 }
 .projectRemove {
   margin: 0 auto;
+  cursor: pointer;
 }
 .projectName {
   margin-right: auto;

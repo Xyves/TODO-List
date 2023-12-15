@@ -31,6 +31,7 @@ export default function loadAllFunctions() {
   createDefaultProjects();
   HighlightSidebar();
   showTaskModal();
+  removeProjectLogic();
 }
 
 const projectTasks = {
@@ -97,14 +98,19 @@ export function setTask() {
       const currentActiveProject = currentActiveProjectElement
         ? currentActiveProjectElement.textContent.trim()
         : null;
-
+      console.log(task.priority);
       const inbox = document.querySelector("#menuInbox");
+      const important = document.querySelector("#menuImportant");
       if (currentActiveProject === selectedProject) {
         createTaskDiv(task);
       } else if (currentActiveProjectElement === inbox) {
         createTaskDiv(task);
+      } else if (
+        currentActiveProjectElement === important &&
+        task.priority === "priorityHigh"
+      ) {
+        createTaskDiv(task);
       }
-
       userInfoParsed[selectedProject].push(task);
 
       // Update UI
@@ -208,7 +214,6 @@ function createProject() {
       ToggleProjectClass();
       detectProjectClick();
       setProjectOption(title);
-
       showTaskModal();
 
       const storedProjectTasksString = localStorage.getItem("projectTasks");
@@ -250,5 +255,4 @@ export function handleMenuDefaultType(text) {
   removeTaskLogic();
   loadLocalStorageTask(text);
   setTask();
-  removeProjectLogic();
 }

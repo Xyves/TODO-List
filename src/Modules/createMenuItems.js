@@ -13,6 +13,7 @@ import {
   showTaskModal,
 } from "./changeVisibility";
 const content = document.querySelector(".content");
+
 export function updateHeaderFromSidebar(text) {
   const content = document.querySelector(".content");
 
@@ -33,15 +34,14 @@ export function createItemsDiv() {
 }
 
 export function createInbox() {
-  resetPage();
   const menuElement = document.querySelector("#menuInbox");
   menuElement.classList.add("sidebar-active");
   const title = "Inbox";
   createTaskContainer();
   loadLocalStorageTask(title);
-  updateHeaderFromSidebar("Inbox");
   setTask();
   showTaskModal();
+  updateHeaderFromSidebar(title);
 }
 
 export function createTaskDiv(task) {

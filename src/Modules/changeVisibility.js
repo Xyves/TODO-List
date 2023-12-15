@@ -1,6 +1,6 @@
-import { setTask } from "./Events";
+import { setTask, handleMenuDefaultType } from "./Events";
 import resetPage from "./resetPage";
-import { createInbox } from "./createMenuItems";
+import { createInbox, updateHeaderFromSidebar } from "./createMenuItems";
 export function toggleTaskClass() {
   const modalBox = document.querySelector(".modal-box");
   modalBox.classList.toggle("none");
@@ -101,8 +101,6 @@ export function removeTaskLogic() {
   });
 }
 function removeFromLocalStorage(uniqueId, text) {
-  console.log("Does it work?");
-
   // Get the data from local storage
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo) || [];
@@ -119,7 +117,6 @@ function removeFromLocalStorage(uniqueId, text) {
         }
       }
     }
-    console.log(text + "Hey");
   } else if (text !== undefined && text !== null) {
     for (const key in userInfoParsed) {
       if (userInfoParsed.hasOwnProperty(key) && key === text) {
@@ -132,15 +129,25 @@ function removeFromLocalStorage(uniqueId, text) {
 export function removeProjectLogic() {
   const removeButtons = document.querySelectorAll(".project .projectRemove");
   removeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
       const project = button.closest(".project");
       const text = project.querySelector(".projectName").textContent;
-
       if (project) {
+        console.log("Removed Project:", text);
         project.remove();
+        removeOption(text);
+        removeFromLocalStorage(null, text);
+        resetPage();
+        createInbox();
       }
-      removeFromLocalStorage(null, text);
-      createInbox();
     });
   });
+}
+function removeOption(text) {
+  const select = document.querySelector("#selectProject");
+  const optionToRemove = select.querySelector(`option[value="${text}"]`);
+  if (optionToRemove) {
+    optionToRemove.remove();
+  }
 }
