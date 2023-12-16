@@ -93,6 +93,7 @@ export function removeTaskLogic() {
 
       const taskUniqueId = uniqueId.charAt(uniqueId.length - 1);
       console.log(taskUniqueId);
+
       if (todoItem) {
         todoItem.remove();
       }
@@ -104,7 +105,8 @@ function removeFromLocalStorage(uniqueId, text) {
   // Get the data from local storage
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo) || [];
-  if (uniqueId !== undefined && uniqueId !== null) {
+  console.log(uniqueId + "Here");
+  if (uniqueId !== null) {
     for (const key in userInfoParsed) {
       if (userInfoParsed.hasOwnProperty(key)) {
         for (let i = 0; i < userInfoParsed[key].length; i++) {
@@ -113,6 +115,10 @@ function removeFromLocalStorage(uniqueId, text) {
           if (task.id == uniqueId) {
             userInfoParsed[key].splice(i, 1);
             i--;
+            localStorage.setItem(
+              "projectTasks",
+              JSON.stringify(userInfoParsed)
+            );
           }
         }
       }
