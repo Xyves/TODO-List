@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100..1000;1,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 @media (max-width: 1000px) {
   /* … */
 }
@@ -31,6 +32,7 @@ body {
   background-color: var(--main-bg-black);
   color: var(--color-white);
   font-family: "DM Sans", sans-serif;
+  overflow: hidden;
 }
 
 #container {
@@ -80,6 +82,7 @@ body {
 .sidebar-active {
   background-color: var(--main-bg-black);
   border-radius: 12px;
+  transform: scale(1.04);
 }
 
 .menu {
@@ -98,8 +101,7 @@ body {
 #menuImportant a {
   margin-left: -5px;
 }
-.sidebar {
-}
+
 .sidebar-menu li i {
   margin-right: 20px;
   max-width: 50px;
@@ -157,10 +159,17 @@ body {
 }
 
 .content h1 {
+  font-family: "Montserrat Medium";
   padding: 40px 40px 40px 0;
   margin-bottom: 40px;
+  transform: scale(0.94);
+  animation: scale 1s forwards cubic-bezier(0.9, 1, 0.89, 1);
 }
-
+@keyframes scale {
+  100% {
+    transform: scale(1);
+  }
+}
 .logo {
   background-color: var(--main-bg-red);
 }
@@ -269,7 +278,9 @@ body {
   padding: 15px 5px;
   border-bottom: 3px solid rgba(146, 142, 135, 0.15);
 }
-
+.todo-item:hover {
+  transform: scale(1.03);
+}
 .todo-item .toDoTaskDate {
   margin-left: auto;
   background-color: var(--main-bg-red);
