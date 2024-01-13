@@ -98,7 +98,6 @@ export function removeTaskLogic() {
 function removeFromLocalStorage(uniqueId, text) {
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo) || [];
-
   if (uniqueId !== null) {
     for (const key in userInfoParsed) {
       if (userInfoParsed.hasOwnProperty(key)) {

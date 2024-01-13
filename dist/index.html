@@ -48,8 +48,8 @@
             </div>
             <template id="projectTmpl">
               <li>
-                <a class="projectName"></a
-                ><i class="fa-regular fa-trash-can projectRemove"></i>
+                <a class="projectName"></a>
+                <!-- <i class="fa-regular fa-trash-can projectRemove"></i> -->
               </li>
             </template>
           </div>
@@ -79,7 +79,13 @@
         <h2>New Task</h2>
         <form action="GET" id="TaskForm">
           <label for="taskTitle">Task Title *</label>
-          <input type="text" id="taskTitle" value="" name="taskTitle" />
+          <input
+            type="text"
+            id="taskTitle"
+            value=""
+            name="taskTitle"
+            autocomplete="off"
+          />
           <label for="priority">Priority</label>
           <select name="priority" id="taskPriority" required value="">
             <option value="" selected disabled>--Select priority--</option>
@@ -114,7 +120,7 @@
         <h2>New Project</h2>
         <form action="GET" class="addProject">
           <label for="form-id">Project title *</label>
-          <input type="text" id="form-id" name="form-id" />
+          <input type="text" id="form-id" name="form-id" autocomplete="off" />
           <p id="uniqueTitle"></p>
 
           <div class="modal-buttons">
