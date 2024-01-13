@@ -194,6 +194,7 @@ body {
 }
 
 .modal-box {
+  pointer-events: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -260,9 +261,17 @@ body {
 
 .visible {
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, 0.75);
-  z-index: 2;
+  /* animation: createBox 0.25s; */
+  z-index: 1;
 }
-
+@keyframes createBox {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(0.5);
+  }
+}
 .none {
   display: none;
 }
