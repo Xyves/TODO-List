@@ -1,4 +1,4 @@
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 class newTask {
   static idCounter = 0;
   constructor(title, priority, date) {
@@ -21,10 +21,10 @@ class newTask {
     return format(new Date(this.date), "dd/MM/yyyy");
   };
 }
-// To be updated
-function addTask(title, priority, date, isCompleted) {}
-function editTask(title, priority, date) {
-  const task = new newTask(title, priority, date);
-}
+// TBA
+// function addTask(title, priority, date, isCompleted) {}
+// function editTask(title, priority, date) {
+//   const task = new newTask(title, priority, date);
+// }
 
 export default newTask;

@@ -1,6 +1,5 @@
-import { setTask, handleMenuDefaultType } from "./Events";
 import resetPage from "./resetPage";
-import { createInbox, updateHeaderFromSidebar } from "./createMenuItems";
+import { createInbox } from "./createMenuItems";
 export function toggleTaskClass() {
   const modalBox = document.querySelector(".modal-box");
   modalBox.classList.toggle("none");
@@ -18,21 +17,17 @@ export function detectTaskClick() {
   window.addEventListener("click", function (e) {
     const modalBox = document.querySelector(".modal-box");
     const modalCancelBtn = document.querySelector(".button-project-cancel");
-
     const cancelTask = document.querySelector(".btn-task-cancel");
+
     modalCancelBtn.addEventListener("click", () => {
       modalBox.classList.add("none");
       modalBox.classList.remove("visible");
     });
-
     if (modalBox.contains(e.target)) {
       if (e.target === cancelTask) {
         modalBox.classList.add("none");
         modalBox.classList.remove("visible");
-      } else {
-        console.log("You clicked inside!");
       }
-      console.log("You clicked inside!");
     } else {
       modalBox.classList.add("none");
       modalBox.classList.remove("visible");
@@ -90,10 +85,7 @@ export function removeTaskLogic() {
     button.addEventListener("click", () => {
       const todoItem = button.closest(".todo-item");
       const uniqueId = todoItem.id;
-
       const taskUniqueId = uniqueId.charAt(uniqueId.length - 1);
-      console.log(taskUniqueId);
-
       if (todoItem) {
         todoItem.remove();
       }
@@ -101,11 +93,12 @@ export function removeTaskLogic() {
     });
   });
 }
+
+// Get data from local storage
 function removeFromLocalStorage(uniqueId, text) {
-  // Get the data from local storage
   const userInfo = localStorage.getItem("projectTasks");
   const userInfoParsed = JSON.parse(userInfo) || [];
-  console.log(uniqueId + "Here");
+
   if (uniqueId !== null) {
     for (const key in userInfoParsed) {
       if (userInfoParsed.hasOwnProperty(key)) {
@@ -132,6 +125,7 @@ function removeFromLocalStorage(uniqueId, text) {
     localStorage.setItem("projectTasks", JSON.stringify(userInfoParsed));
   }
 }
+
 export function removeProjectLogic() {
   const removeButtons = document.querySelectorAll(".project .projectRemove");
   removeButtons.forEach((button) => {
@@ -150,6 +144,7 @@ export function removeProjectLogic() {
     });
   });
 }
+
 function removeOption(text) {
   const select = document.querySelector("#selectProject");
   const optionToRemove = select.querySelector(`option[value="${text}"]`);

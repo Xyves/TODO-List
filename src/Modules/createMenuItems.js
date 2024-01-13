@@ -1,9 +1,6 @@
-import resetPage from "./resetPage";
+
 import {
-  handleMenuDefaultType,
-  loadLocalStorage,
   handleMenu,
-  loadInboxLocalStorage,
   setTask,
   loadLocalStorageTask,
 } from "./Events";
@@ -12,11 +9,11 @@ import {
   removeProjectLogic,
   showTaskModal,
 } from "./changeVisibility";
+
 const content = document.querySelector(".content");
 
 export function updateHeaderFromSidebar(text) {
   const content = document.querySelector(".content");
-
   const mainHeader = document.createElement("h1");
   mainHeader.textContent = text;
   content.prepend(mainHeader);
@@ -35,6 +32,7 @@ export function createItemsDiv() {
 
 export function createInbox() {
   const menuElement = document.querySelector("#menuInbox");
+
   menuElement.classList.add("sidebar-active");
   const title = "Inbox";
   createTaskContainer();
@@ -60,6 +58,7 @@ export function createTaskDiv(task) {
 
   const priorityElement = taskDiv.querySelector(".taskPriority");
   const priority = task.priority;
+
   switch (priority) {
     case "priorityLow":
       priorityElement.classList.add("project-green");
@@ -71,13 +70,13 @@ export function createTaskDiv(task) {
       priorityElement.classList.add("project-red");
       break;
   }
-
   taskDiv.addEventListener("click", function () {
     priorityElement.classList.toggle("fa-circle");
     priorityElement.classList.toggle("fa-circle-check");
   });
   removeTaskLogic();
 }
+
 // load local storage projects
 export function createNewProject(project) {
   const createdProjects = document.querySelector(".created-projects");
@@ -92,16 +91,16 @@ export function createNewProject(project) {
     projectContainer.classList.add("sidebar-active");
     removeProjectLogic();
   });
-
   createdProjects.appendChild(projectContainer);
 }
+
 // Function run when creating new project
 export function createProjectDiv(project) {
   const createdProjects = document.querySelector(".created-projects");
   const projectContainer = document.createElement("div");
-  projectContainer.classList.add("project", "menuElement");
   const projectTmpl = document.querySelector("#projectTmpl");
-
+  
+  projectContainer.classList.add("project", "menuElement");
   projectContainer.append(projectTmpl.content.cloneNode(true));
   projectContainer.querySelector(".projectName").textContent = project.title;
   projectContainer.classList.add("sidebar-active");
@@ -113,6 +112,7 @@ export function createProjectDiv(project) {
   });
   createdProjects.appendChild(projectContainer);
 }
+
 function handleProjectClick(clickedProject) {
   const elements = document.querySelectorAll(".menuElement");
   elements.forEach((project) => {
@@ -127,6 +127,7 @@ export function createTaskContainer() {
   content.appendChild(taskContainer);
   createItemsDiv();
 }
+
 export function setProjectOption(title) {
   const formProjectOption = document.querySelector("#selectProject");
   const option = document.createElement("option");

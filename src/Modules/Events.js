@@ -98,7 +98,6 @@ export function setTask() {
       const currentActiveProject = currentActiveProjectElement
         ? currentActiveProjectElement.textContent.trim()
         : null;
-      console.log(task.priority);
       const inbox = document.querySelector("#menuInbox");
       const important = document.querySelector("#menuImportant");
       if (currentActiveProject === selectedProject) {
@@ -139,23 +138,28 @@ export function setTask() {
     }
   });
 }
-function isProjectTitleUnique(newProjectTitle) {
-  const projectElements = document.querySelectorAll(".menuElement li");
+function isProjectTitleUnique(title) {
+  const projectElements = document.querySelectorAll(".menuElement li a");
   const mainProjects = document.querySelectorAll(".menuEl a");
   const uniqueTitle = document.querySelector("#uniqueTitle");
 
+  // Project with the same title already exists
   for (const element of projectElements) {
-    if (element.textContent == newProjectTitle) {
-      // Project with the same title already exists
+    if (element.textContent == title) {
       uniqueTitle.textContent = "Change title to something unique";
       return false;
     }
   }
   for (const element of mainProjects) {
-    if (element.textContent === newProjectTitle) {
-      uniqueTitle.textContent = "Change title to something unique";
+    if (element.textContent === title) {
+      uniqueTitle.textContent = "Change title to something unique#";
       return false;
     }
+  }
+
+  if (title === "" || title === null || title === undefined) {
+    uniqueTitle.textContent = "Project is empty";
+    return false;
   }
   return true;
 }
@@ -198,10 +202,8 @@ function createProject() {
     const projectTitleInput = document.querySelector("#form-id");
     const projectTitle = projectTitleInput.value.trim();
     e.preventDefault();
-
     if (!isProjectTitleUnique(projectTitle)) {
-      console.log("Project title is not unique");
-    } else if (projectTitle === "") {
+      return false;
     } else {
       // Create new Object
       const project = new addNewProject(projectTitle);
@@ -241,7 +243,7 @@ export function createDefaultProjects() {
   Today.addEventListener("click", () => handleMenuDefaultType("Today"));
   NextWeek.addEventListener("click", () => handleMenuDefaultType("Next Week"));
   Important.addEventListener("click", () => handleMenuDefaultType("Important"));
-  Completed.addEventListener("click", () => handleMenuDefaultType("Completed"));
+  // Completed.addEventListener("click", () => handleMenuDefaultType("Completed"));
   demoProject.addEventListener("click", () =>
     handleMenuDefaultType("Demo Project")
   );

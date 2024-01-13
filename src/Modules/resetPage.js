@@ -1,7 +1,6 @@
 export default function () {
   const content = document.querySelector(".content");
   content.innerHTML = "";
-  console.log("WIPED!");
   deleteClass();
 }
 function deleteClass() {
