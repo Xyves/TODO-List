@@ -9,13 +9,15 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@webpack-cli/generators": "^3.0.7",
     "css-loader": "^6.8.1",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.5.3",
     "prettier": "^3.1.0",
     "style-loader": "^3.3.3",
