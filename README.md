@@ -14,7 +14,7 @@ In order to setup and work on this project on your own, you will need to:
 1. Clone the GitHub repository to your local machine:
 
    ```bash
-   git clone https://github.com/Xyves/Weather-app.git
+   git clone https://github.com/Xyves/TODO-List
    ```
    
 2. Install the project's dependencies using npm:
