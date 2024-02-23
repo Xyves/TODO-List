@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100..1000;1,100..1000&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 @media (max-width: 1000px) {
-  /* … */
+  body * {
+    font-size: 1rem !important;
+  }
 }
 
 :root {
@@ -44,9 +46,10 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: absolute;
   background-color: var(--bg-light-grey);
   color: var(--color-white);
-  width: 20%;
+  min-width: 20%;
   padding: 30px;
   position: absolute;
   display: flex;
@@ -107,7 +110,9 @@ body {
   max-width: 50px;
   max-height: 34px;
 }
-
+.fa-folder{
+  user-select: none;
+}
 .sidebar-header i:hover {
   background-color: var(--main-bg-black);
   border-radius: 15px;
@@ -151,11 +156,24 @@ body {
 .sidebar > ul > li > i {
   color: var(--text--grey);
 }
+.sidebar-show > i{
+  color:var(--text--grey);
+  position: absolute;
+  top:15px;
+  right:0;
+  padding:10px;
+  z-index: 1000;
+  cursor:pointer;
+}
+.sidebar-show > i:hover{
+  color: #666666;
+}
 /* Content */
 .content {
   grid-column: 2/3;
   width: 100%;
   height: 100%;
+  white-space: nowrap;
 }
 
 .content h1 {
