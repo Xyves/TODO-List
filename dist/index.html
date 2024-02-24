@@ -4,17 +4,18 @@
     <meta charset="utf-8" />
     <title>Todo List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link rel="stylesheet" href="output.css" />
     <script
       src="https://kit.fontawesome.com/33d401369d.js"
       crossorigin="anonymous"
     ></script>
-    <script defer="defer" src="bundle.js"></script>
+    <script defer="defer" src="/dist/bundle.js"></script>
+    <base href="/" />
   </head>
   <body>
     <div id="container">
       <div class="sidebar sidebar-show">
+        <i class="fa-solid fa-square-caret-left fa-lg"></i>
         <ul class="sidebar-menu">
           <li id="menuInbox" class="menuEl menuElement">
             <i class="fa-regular fa-envelope"></i><a>Inbox</a>
@@ -34,7 +35,7 @@
         </ul>
         <ul class="sidebar-project">
           <header class="sidebar-header">
-            <i class="fa-regular fa-folder" style="color: #ffffff"></i>
+            <i class="fa-regular fa-folder " style="color: #ffffff"></i>
             <p>Projects</p>
             <i
               class="add-project-modal fa-solid fa-square-plus"
