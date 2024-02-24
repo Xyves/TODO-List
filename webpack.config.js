@@ -11,10 +11,17 @@ const config = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: "/",
+
   },
   devServer: {
     open: true,
     host: "localhost",
+    port: 8000,
+    static: {
+      directory: path.join(__dirname, "dist"), // Serve files from the 'dist' directory
+    },
+    historyApiFallback: true, // Handle fallback for HTML5 history API
   },
 
   module: {
