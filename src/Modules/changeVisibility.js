@@ -151,10 +151,11 @@ function removeOption(text) {
     optionToRemove.remove();
   }
 }
-function hideSidebar(){
+export function hideSidebar(){
   const button = document.querySelector(".fa-square-caret-left")
   const sidebar = document.querySelector(".sidebar")
   button.addEventListener("click",()=>{
 sidebar.classList.toggle("sidebar-show")
+sidebar.classList.toggle("sidebar-hide")
   })
 }

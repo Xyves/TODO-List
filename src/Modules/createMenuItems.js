@@ -32,7 +32,6 @@ export function createItemsDiv() {
 
 export function createInbox() {
   const menuElement = document.querySelector("#menuInbox");
-
   menuElement.classList.add("sidebar-active");
   const title = "Inbox";
   createTaskContainer();
