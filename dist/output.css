@@ -55,28 +55,26 @@ body {
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
-  transition: left 0.8s linear; 
 }
-
 
 .sidebar-hide {
-  left: -15%; /* Move sidebar off-screen */
+  left: -15%; 
+  animation: slideOut .5s ease-in-out forwards;
 }
-
+.sidebar-show{
+  animation: slideIn .5s ease-in-out forwards;
+}
 .sidebar-show > i {
-  color: var(--text--grey);
-  position: fixed; /* Position relative to viewport */
+  color: var(--color-white);
+  position: fixed; 
   top: 15px;
-  right: 15px; /* Adjust as needed */
+  right: 15px; 
   padding: 10px;
   z-index: 1000;
   cursor: pointer;
-  font-size: 36px;
-  transition: right 0.8s linear; /* Apply transition to icon */
 }
-.sidebar-hide > i {
-  right: calc(100% + 15px); /* Move icon off-screen when sidebar is hidden */
-}
+
+
 .sidebar-header p {
   display: inline-block;
   vertical-align: top;
@@ -170,20 +168,39 @@ body {
 .sidebar > i{
   color:var(--text--grey);
   position: absolute;
-  right:0;
-  top:15px;
-  padding:10px;
+  right:15px;
+  top:30px;
+  padding:15px;
   z-index: 1000;
   cursor:pointer;
   font-size: 36px;
 }
-.sidebar-hide > .fa-square-caret-left {
-  right: calc(100% - 15px); /* Keep icon pinned to the right edge of the sidebar when hidden */
+.sidebar-hide > .carousel {
+  right:10px;
+  top:30px;
 }
 
 .sidebar-show > i:hover{
   color: #666666;
 }
+/* Animations */
+@keyframes slideOut {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -14%; 
+  }
+}
+@keyframes slideIn {
+  0% {
+    left: -14%;
+  }
+  100% {
+    left:0%;
+  }
+}
+
 /* Content */
 .content {
   grid-column: 2/3;

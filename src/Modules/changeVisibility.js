@@ -157,5 +157,7 @@ export function hideSidebar(){
   button.addEventListener("click",()=>{
 sidebar.classList.toggle("sidebar-show")
 sidebar.classList.toggle("sidebar-hide")
+button.classList.toggle("fa-square-caret-left")
+button.classList.toggle("fa-square-caret-right")
   })
 }
