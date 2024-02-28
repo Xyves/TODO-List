@@ -8,7 +8,8 @@
     <a href="https://xyves.github.io/TODO-List/"><strong>View Demo</strong></a>
   </p>
 
- ### Installation
+### Installation
+
 In order to setup and work on this project on your own, you will need to:
 
 1. Clone the GitHub repository to your local machine:
@@ -16,7 +17,7 @@ In order to setup and work on this project on your own, you will need to:
    ```bash
    git clone https://github.com/Xyves/TODO-List
    ```
-   
+
 2. Install the project's dependencies using npm:
 
    ```bash
@@ -28,14 +29,15 @@ In order to setup and work on this project on your own, you will need to:
    ```bash
    npm run build
    ```
+
 4. The build files can be found on `dist` (distribution) directory.
 
 <br>
 
 #### Future update ideas.
+
 - Sort by date
 - Remove projects
-- Hide sidebar
 - Responsive for mobile
 - Edit task name,priority, date
 - New "Completed" menu element
