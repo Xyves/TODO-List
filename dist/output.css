@@ -58,22 +58,21 @@ body {
 }
 
 .sidebar-hide {
-  left: -15%; 
-  animation: slideOut .5s ease-in-out forwards;
+  left: -15%;
+  animation: slideOut 0.5s ease-in-out forwards;
 }
-.sidebar-show{
-  animation: slideIn .5s ease-in-out forwards;
+.sidebar-show {
+  animation: slideIn 0.5s ease-in-out forwards;
 }
 .sidebar-show > i {
   color: var(--color-white);
-  position: fixed; 
+  position: fixed;
   top: 15px;
-  right: 15px; 
+  right: 15px;
   padding: 10px;
   z-index: 1000;
   cursor: pointer;
 }
-
 
 .sidebar-header p {
   display: inline-block;
@@ -119,7 +118,7 @@ body {
   max-width: 50px;
   max-height: 34px;
 }
-.fa-folder{
+.fa-folder {
   user-select: none;
 }
 .sidebar-header i:hover {
@@ -165,22 +164,22 @@ body {
 .sidebar > ul > li > i {
   color: var(--text--grey);
 }
-.sidebar > i{
-  color:var(--text--grey);
+.sidebar > i {
+  color: var(--text--grey);
   position: absolute;
-  right:15px;
-  top:30px;
-  padding:15px;
+  right: 15px;
+  top: 30px;
+  padding: 15px;
   z-index: 1000;
-  cursor:pointer;
+  cursor: pointer;
   font-size: 36px;
 }
 .sidebar-hide > .carousel {
-  right:10px;
-  top:30px;
+  right: 10px;
+  top: 30px;
 }
 
-.sidebar-show > i:hover{
+.sidebar-show > i:hover {
   color: #666666;
 }
 /* Animations */
@@ -189,7 +188,7 @@ body {
     left: 0;
   }
   100% {
-    left: -14%; 
+    left: -14%;
   }
 }
 @keyframes slideIn {
@@ -197,7 +196,7 @@ body {
     left: -14%;
   }
   100% {
-    left:0%;
+    left: 0%;
   }
 }
 
@@ -359,7 +358,9 @@ body {
   padding: 5px;
   margin: 0 10px;
 }
-
+.taskRemove {
+  cursor: pointer;
+}
 .taskEdit {
   margin: 0 10px;
   padding: 5px;
