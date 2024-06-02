@@ -365,6 +365,9 @@ body {
   margin: 0 10px;
   padding: 5px;
 }
+.modal-buttons button {
+  cursor: pointer;
+}
 .taskbtn {
   margin-left: 20px;
   display: block;
